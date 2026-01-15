@@ -1,5 +1,620 @@
 <!DOCTYPE html>
 <html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第1回授業：HTMLタグ一覧</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+        line-height: 1.6;
+      }
+      
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      
+      .header h1 {
+        margin: 0 0 10px 0;
+        font-size: 2em;
+      }
+      
+      .section {
+        background: white;
+        padding: 25px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      
+      .section h2 {
+        color: #667eea;
+        border-bottom: 3px solid #667eea;
+        padding-bottom: 10px;
+        margin-top: 0;
+      }
+      
+      .tag-card {
+        background: #f8f9ff;
+        border-left: 4px solid #667eea;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+      }
+      
+      .tag-name {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #764ba2;
+        margin-bottom: 8px;
+      }
+      
+      .tag-description {
+        color: #555;
+        margin-bottom: 10px;
+      }
+      
+      .code-example {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 15px;
+        border-radius: 5px;
+        font-family: 'Courier New', monospace;
+        overflow-x: auto;
+        margin: 10px 0;
+        white-space: pre;
+      }
+      
+      .code-example code {
+        color: #a6e22e;
+      }
+      
+      .preview-box {
+        background: white;
+        border: 2px solid #667eea;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 10px 0;
+      }
+      
+      .preview-label {
+        background: #667eea;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-size: 0.9em;
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+      
+      .tips {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+      
+      .tips strong {
+        color: #856404;
+      }
+
+      .important-box {
+        background: #f8d7da;
+        border-left: 4px solid #dc3545;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+
+      .important-box strong {
+        color: #721c24;
+      }
+      
+      .task-box {
+        background: #d1ecf1;
+        border-left: 4px solid #17a2b8;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+      
+      .task-box h3 {
+        margin-top: 0;
+        color: #0c5460;
+      }
+      
+      ul.checklist {
+        list-style: none;
+        padding-left: 0;
+      }
+      
+      ul.checklist li:before {
+        content: "✓ ";
+        color: #28a745;
+        font-weight: bold;
+        margin-right: 8px;
+      }
+      
+      .image-urls {
+        background: #e7f3ff;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 10px 0;
+      }
+      
+      .image-urls p {
+        margin: 5px 0;
+        font-size: 0.9em;
+      }
+
+      .step-number {
+        display: inline-block;
+        background: #667eea;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 30px;
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      .step-item {
+        margin: 15px 0;
+        padding: 15px;
+        background: #f8f9ff;
+        border-radius: 5px;
+      }
+
+      .screenshot-placeholder {
+        background: #e9ecef;
+        border: 2px dashed #6c757d;
+        padding: 40px;
+        text-align: center;
+        border-radius: 5px;
+        margin: 15px 0;
+        color: #6c757d;
+        font-style: italic;
+      }
+
+      .info-box {
+        background: #d4edda;
+        border-left: 4px solid #28a745;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+
+      .info-box strong {
+        color: #155724;
+      }
+
+      .footer-section {
+        text-align: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .footer-section h2 {
+        color: white;
+        border: none;
+      }
+
+      .codepen-link {
+        margin-top: 20px;
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>🌐 第1回授業：HTMLタグ一覧</h1>
+      <p>HTMLの基本とCodePenの使い方を学んで、簡単なホームページを作ろう！</p>
+    </div>
+
+    <!-- HTMLって何？ -->
+    <div class="section">
+      <h2>💡 HTMLって何？</h2>
+      
+      <div class="info-box">
+        <strong>🌟 HTMLは「Webページの設計図」です</strong><br>
+        みなさんが毎日見ているYouTube、Instagram、Google、学校のホームページ...これらは全部HTMLで作られています！
+      </div>
+
+      <h3>HTMLの正式名称</h3>
+      <p><strong>HTML = HyperText Markup Language</strong></p>
+      <ul>
+        <li><strong>HyperText：</strong> リンクでつながった文書</li>
+        <li><strong>Markup：</strong> 目印をつける</li>
+        <li><strong>Language：</strong> 言語</li>
+      </ul>
+
+      <h3>HTMLの役割</h3>
+      <div class="tag-card">
+        <div class="tag-name">🏗️ ページの構造を作る</div>
+        <div class="tag-description">
+          HTMLは「これは見出し」「これは段落」「これは画像」というように、ページの各部分に意味を持たせます。
+        </div>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">🔖 タグで囲む</div>
+        <div class="tag-description">
+          HTMLは「タグ」という記号を使います。タグで文字を囲むことで、その部分の役割を指定します。
+        </div>
+        <div class="code-example">&lt;タグ名&gt;内容&lt;/タグ名&gt;
+   ↑        ↑
+開始タグ  終了タグ</div>
+      </div>
+
+      <h3>例えば...</h3>
+      <div class="code-example">&lt;h1&gt;私のホームページ&lt;/h1&gt;</div>
+      <p>この場合：</p>
+      <ul>
+        <li><code>&lt;h1&gt;</code> が開始タグ</li>
+        <li><code>私のホームページ</code> が内容</li>
+        <li><code>&lt;/h1&gt;</code> が終了タグ</li>
+      </ul>
+      <p>→ブラウザは「これは大きな見出しだな」と理解して、大きな文字で表示します</p>
+
+      <div class="important-box">
+        <strong>⚠️ 重要なルール</strong><br>
+        • タグは必ず半角英数字で書く（全角だと動きません）<br>
+        • 開始タグと終了タグはセットで使う<br>
+        • タグの名前は決まっている（自分で作れません）
+      </div>
+    </div>
+
+    <!-- CodePenって何？ -->
+    <div class="section">
+      <h2>🖊️ CodePenって何？</h2>
+      
+      <div class="info-box">
+        <strong>CodePenは、ブラウザだけでHTMLが書けるWebサイトです</strong><br>
+        ファイルのダウンロードやインストールは不要！書いたコードがすぐに表示されます。
+      </div>
+
+      <h3>CodePenの特徴</h3>
+      <ul class="checklist">
+        <li>無料で使える</li>
+        <li>ブラウザだけあればOK（ChromebookでもPCでも使える）</li>
+        <li>コードを書くと、リアルタイムで結果が見られる</li>
+        <li>作った作品はURLで保存・共有できる</li>
+      </ul>
+    </div>
+
+    <!-- CodePenの使い方 -->
+    <div class="section">
+      <h2>📝 CodePenの使い方（ステップ・バイ・ステップ）</h2>
+
+      <div class="step-item">
+        <h3><span class="step-number">1</span>CodePenにアクセス</h3>
+        <p><strong>URL：</strong> https://codepen.io/</p>
+        <p>ブラウザのアドレスバーに入力してEnterキーを押します。</p>
+      </div>
+
+      <div class="step-item">
+        <h3><span class="step-number">2</span>「Start Coding」をクリック</h3>
+        <p>トップページの真ん中にある「Start Coding」ボタンをクリックします。</p>
+        <div class="tips">
+          <strong>💡 ポイント：</strong> ログインしなくても使えます！（ただし保存するにはアカウントが必要）
+        </div>
+      </div>
+
+      <div class="step-item">
+        <h3><span class="step-number">3</span>画面の見方を理解しよう</h3>
+        <p>CodePenの画面は大きく4つのエリアに分かれています：</p>
+        
+        <div class="tag-card">
+          <div class="tag-name">📄 HTMLエリア（左上）</div>
+          <div class="tag-description">
+            ここにHTMLコードを書きます。今日使うのはここだけ！
+          </div>
+        </div>
+
+        <div class="tag-card">
+          <div class="tag-name">🎨 CSSエリア（左下）</div>
+          <div class="tag-description">
+            色やデザインを変えるコードを書く場所（今日は使いません）<br>
+            <strong>→ 最小化してOK</strong>
+          </div>
+        </div>
+
+        <div class="tag-card">
+          <div class="tag-name">⚙️ JSエリア（左下）</div>
+          <div class="tag-description">
+            動きをつけるコードを書く場所（今日は使いません）<br>
+            <strong>→ 最小化してOK</strong>
+          </div>
+        </div>
+
+        <div class="tag-card">
+          <div class="tag-name">👁️ プレビューエリア（右側）</div>
+          <div class="tag-description">
+            書いたコードの結果がリアルタイムで表示されます
+          </div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <h3><span class="step-number">4</span>実際に書いてみよう</h3>
+        <p>HTMLエリアに以下を入力してみましょう：</p>
+        <div class="code-example">&lt;h1&gt;こんにちは&lt;/h1&gt;</div>
+        <p>→ 右側のプレビューエリアに大きな文字で「こんにちは」と表示されます！</p>
+      </div>
+
+      <div class="step-item">
+        <h3><span class="step-number">5</span>保存する方法</h3>
+        <p><strong>方法1：ログインして保存（おすすめ）</strong></p>
+        <ol>
+          <li>画面右上の「Sign Up」をクリック</li>
+          <li>メールアドレスとパスワードを入力</li>
+          <li>画面右下の「Save」ボタンをクリック</li>
+          <li>URLが確定します（このURLを提出します）</li>
+        </ol>
+
+        <p><strong>方法2：ログインせずにURLをコピー</strong></p>
+        <ul>
+          <li>URLバーのアドレスをそのままコピー</li>
+          <li>⚠️ 注意：後で編集できなくなります</li>
+        </ul>
+      </div>
+
+      <div class="important-box">
+        <strong>🎯 今日の授業では...</strong><br>
+        最初はログインなしで始めてOKです。途中でアカウントを作って保存しましょう。
+      </div>
+    </div>
+
+    <!-- コードの慣習 -->
+    <div class="section">
+      <h2>📏 コードを書く時の慣習（読みやすいコードの書き方）</h2>
+      <p>プログラミングには「こう書くとみんなが読みやすい」というルールがあります。これを守ると、後で見直す時や他の人が見る時に分かりやすくなります。</p>
+
+      <h3>1️⃣ インデント（字下げ）を使う</h3>
+      <div class="tag-card">
+        <div class="tag-name">❌ 悪い例（読みにくい）</div>
+        <div class="code-example">&lt;ul&gt;
+&lt;li&gt;ラーメン&lt;/li&gt;
+&lt;li&gt;カレー&lt;/li&gt;
+&lt;li&gt;寿司&lt;/li&gt;
+&lt;/ul&gt;</div>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">✅ 良い例（読みやすい）</div>
+        <div class="code-example">&lt;ul&gt;
+  &lt;li&gt;ラーメン&lt;/li&gt;
+  &lt;li&gt;カレー&lt;/li&gt;
+  &lt;li&gt;寿司&lt;/li&gt;
+&lt;/ul&gt;</div>
+        <div class="tag-description">
+          タグの中身を2文字分（スペース2つ）字下げします。これで「どのタグの中身か」が一目で分かります。
+        </div>
+      </div>
+
+      <h3>2️⃣ 1行に1つのタグ</h3>
+      <div class="tag-card">
+        <div class="tag-name">❌ 悪い例（詰まっていて読みにくい）</div>
+        <div class="code-example">&lt;h2&gt;好きな食べ物&lt;/h2&gt;&lt;p&gt;ラーメンが好きです&lt;/p&gt;&lt;p&gt;カレーも好きです&lt;/p&gt;</div>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">✅ 良い例（すっきりしている）</div>
+        <div class="code-example">&lt;h2&gt;好きな食べ物&lt;/h2&gt;
+&lt;p&gt;ラーメンが好きです&lt;/p&gt;
+&lt;p&gt;カレーも好きです&lt;/p&gt;</div>
+        <div class="tag-description">
+          タグごとに改行すると、どこからどこまでが1つのタグか分かりやすくなります。
+        </div>
+      </div>
+
+      <h3>3️⃣ 開始タグと終了タグを揃える</h3>
+      <div class="tag-card">
+        <div class="tag-name">✅ 良い例（ペアが分かりやすい）</div>
+        <div class="code-example">&lt;h2&gt;趣味&lt;/h2&gt;
+&lt;p&gt;音楽を聴くことが好きです。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;ポップス&lt;/li&gt;
+  &lt;li&gt;ロック&lt;/li&gt;
+&lt;/ul&gt;</div>
+        <div class="tag-description">
+          開始タグと終了タグは同じ位置（インデント）に揃えます。こうすると「どれとどれがペアか」が見やすいです。
+        </div>
+      </div>
+
+      <h3>4️⃣ 小文字で書く</h3>
+      <div class="tag-card">
+        <div class="tag-name">❌ 悪い例（大文字と小文字が混ざっている）</div>
+        <div class="code-example">&lt;H1&gt;タイトル&lt;/H1&gt;
+&lt;P&gt;文章です&lt;/p&gt;</div>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">✅ 良い例（全部小文字）</div>
+        <div class="code-example">&lt;h1&gt;タイトル&lt;/h1&gt;
+&lt;p&gt;文章です&lt;/p&gt;</div>
+        <div class="tag-description">
+          HTMLタグは全て小文字で書くのが現代の標準です。（大文字でも動きますが、小文字に統一しましょう）
+        </div>
+      </div>
+
+      <h3>5️⃣ 空行を使ってグループ分け</h3>
+      <div class="tag-card">
+        <div class="tag-name">✅ 良い例（見やすい）</div>
+        <div class="code-example">&lt;h1&gt;私の自己紹介&lt;/h1&gt;
+
+&lt;h2&gt;好きな食べ物&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;ラーメン&lt;/li&gt;
+  &lt;li&gt;カレー&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;趣味&lt;/h2&gt;
+&lt;p&gt;音楽を聴くことです。&lt;/p&gt;</div>
+        <div class="tag-description">
+          セクション（かたまり）の間に空行を1行入れると、どこで話題が変わるか分かりやすくなります。
+        </div>
+      </div>
+
+      <div class="important-box">
+        <strong>🎓 プロのプログラマーも守っているルール</strong><br>
+        これらの慣習は、世界中のプログラマーが守っています。最初は面倒に感じるかもしれませんが、慣れると自然に書けるようになります！
+      </div>
+
+      <div class="tips">
+        <strong>💡 ワンポイントアドバイス</strong><br>
+        CodePenは自動的にインデントを整えてくれる機能があります。コードを書いた後、設定メニュー（歯車アイコン）から「Format HTML」を選ぶと、自動で整形されます！
+      </div>
+    </div>
+
+    <!-- タグ一覧 -->
+    <div class="section">
+      <h2>📚 今日学ぶHTMLタグ</h2>
+      <p>これらのタグを使えば、本格的なWebページが作れます！</p>
+      
+      <!-- h1タグ -->
+      <div class="tag-card">
+        <div class="tag-name">&lt;h1&gt; 大見出しタグ</div>
+        <div class="tag-description">ページの一番大きなタイトルに使います。ページに1つだけ使うのが基本です。</div>
+        <div class="code-example">&lt;h1&gt;私の自己紹介&lt;/h1&gt;</div>
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <h1 style="margin: 0;">私の自己紹介</h1>
+        </div>
+      </div>
+
+      <!-- h2タグ -->
+      <div class="tag-card">
+        <div class="tag-name">&lt;h2&gt; 中見出しタグ</div>
+        <div class="tag-description">セクション（章）のタイトルに使います。何度でも使えます。</div>
+        <div class="code-example">&lt;h2&gt;好きなこと&lt;/h2&gt;</div>
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <h2 style="margin: 0;">好きなこと</h2>
+        </div>
+      </div>
+
+      <!-- pタグ -->
+      <div class="tag-card">
+        <div class="tag-name">&lt;p&gt; 段落タグ</div>
+        <div class="tag-description">普通の文章を書くときに使います。</div>
+        <div class="code-example">&lt;p&gt;サッカーが好きです。毎週末に友達と遊んでいます。&lt;/p&gt;</div>
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <p style="margin: 0;">サッカーが好きです。毎週末に友達と遊んでいます。</p>
+        </div>
+      </div>
+
+      <!-- ulタグ -->
+      <div class="tag-card">
+        <div class="tag-name">&lt;ul&gt; &lt;li&gt; 箇条書きリスト</div>
+        <div class="tag-description">●マーク付きのリストを作ります。順番が関係ない項目に使います。</div>
+        <div class="code-example">&lt;ul&gt;
+  &lt;li&gt;ラーメン&lt;/li&gt;
+  &lt;li&gt;カレー&lt;/li&gt;
+  &lt;li&gt;寿司&lt;/li&gt;
+&lt;/ul&gt;</div>
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <ul style="margin: 0;">
+            <li>ラーメン</li>
+            <li>カレー</li>
+            <li>寿司</li>
+          </ul>
+        </div>
+        <div class="tips">
+          <strong>💡 ポイント：</strong> &lt;li&gt;は&lt;ul&gt;の中に書きます。字下げ（インデント）すると見やすくなります。
+        </div>
+      </div>
+
+      <!-- olタグ -->
+      <div class="tag-card">
+        <div class="tag-name">&lt;ol&gt; &lt;li&gt; 番号付きリスト</div>
+        <div class="tag-description">番号付きのリストを作ります。順番が大事な項目に使います。</div>
+        <div class="code-example">&lt;ol&gt;
+  &lt;li&gt;起きる&lt;/li&gt;
+  &lt;li&gt;朝ごはんを食べる&lt;/li&gt;
+  &lt;li&gt;学校に行く&lt;/li&gt;
+&lt;/ol&gt;</div>
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <ol style="margin: 0;">
+            <li>起きる</li>
+            <li>朝ごはんを食べる</li>
+            <li>学校に行く</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- aタグ -->
+      <div class="tag-card">
+        <div class="tag-name">&lt;a href="URL"&gt; リンクタグ</div>
+        <div class="tag-description">他のページへのリンクを作ります。クリックするとそのページに飛びます。</div>
+        <div class="code-example">&lt;a href="https://www.google.com"&gt;Googleで検索&lt;/a&gt;</div>
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <a href="https://www.google.com" style="margin: 0;">Googleで検索</a>
+        </div>
+        <div class="tips">
+          <strong>💡 ポイント：</strong> URLは必ず https:// から始めましょう
+        </div>
+      </div>
+
+      <!-- imgタグ -->
+      <div class="tag-card">
+        <div class="tag-name">&lt;img src="画像URL" alt="説明"&gt; 画像タグ</div>
+        <div class="tag-description">画像を表示します。srcに画像のURL、altに画像の説明を書きます。</div>
+        <div class="code-example">&lt;img src="画像URL" alt="猫の写真"&gt;</div>
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=200" alt="猫の写真" style="max-width: 200px; border-radius: 5px;">
+        </div>
+        <div class="important-box">
+          <strong>⚠️ 注意：</strong> imgタグは閉じタグがありません（例外的なタグです）
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🖼️ 使える画像URL集</h2>
+      <p>以下の画像URLをコピーして使えます（Unsplashの無料画像）</p>
+      <div class="image-urls">
+        <p><strong>猫：</strong> https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=300</p>
+        <p><strong>犬：</strong> https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=300</p>
+        <p><strong>空：</strong> https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300</p>
+        <p><strong>海：</strong> https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=300</p>
+        <p><strong>山：</strong> https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300</p>
+        <p><strong>花：</strong> https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=300</p>
+      </div>
+      <div class="tips">
+        <strong>💡 自分で画像を探す方法：</strong><br>
+        Unsplash（https://unsplash.com/）で検索→画像を右クリック→「画像アドレスをコピー」
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>✏️ 完成例</h2>
+      <p>これらのタグを組み合わせて作ったページの例です：</p>
+      <div class="code-example">&lt;h1&gt;私の好きなもの紹介&lt;/h1&gt;
+
+&lt;h2&gt;好きな食べ物&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;ラーメン&lt;/li&gt;
+  &lt;li&gt;カレー&lt;/li&gt;
+  &lt;li&gt;アイスクリ<!DOCTYPE html>
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -375,9 +990,7 @@
         <div class="tag-card">
             <div class="tag-name">&lt;h1&gt; 大見出しタグ</div>
             <div class="tag-description">ページの一番大きなタイトルに使います。ページに1つだけ使うのが基本です。</div>
-            <div class="code-example">
-&lt;h1&gt;私の自己紹介&lt;/h1&gt;
-            </div>
+            <div class="code-example">&lt;h1&gt;私の自己紹介&lt;/h1&gt;</div>
             <div class="preview-box">
                 <div class="preview-label">表示結果</div>
                 <h1 style="margin: 0;">私の自己紹介</h1>
@@ -388,9 +1001,7 @@
         <div class="tag-card">
             <div class="tag-name">&lt;h2&gt; 中見出しタグ</div>
             <div class="tag-description">セクション（章）のタイトルに使います。何度でも使えます。</div>
-            <div class="code-example">
-&lt;h2&gt;好きなこと&lt;/h2&gt;
-            </div>
+            <div class="code-example">&lt;h2&gt;好きなこと&lt;/h2&gt;</div>
             <div class="preview-box">
                 <div class="preview-label">表示結果</div>
                 <h2 style="margin: 0;">好きなこと</h2>
@@ -401,9 +1012,7 @@
         <div class="tag-card">
             <div class="tag-name">&lt;p&gt; 段落タグ</div>
             <div class="tag-description">普通の文章を書くときに使います。</div>
-            <div class="code-example">
-&lt;p&gt;サッカーが好きです。毎週末に友達と遊んでいます。&lt;/p&gt;
-            </div>
+            <div class="code-example">&lt;p&gt;サッカーが好きです。毎週末に友達と遊んでいます。&lt;/p&gt;</div>
             <div class="preview-box">
                 <div class="preview-label">表示結果</div>
                 <p style="margin: 0;">サッカーが好きです。毎週末に友達と遊んでいます。</p>
@@ -414,13 +1023,11 @@
         <div class="tag-card">
             <div class="tag-name">&lt;ul&gt; &lt;li&gt; 箇条書きリスト</div>
             <div class="tag-description">●マーク付きのリストを作ります。順番が関係ない項目に使います。</div>
-            <div class="code-example">
-&lt;ul&gt;
+            <div class="code-example">&lt;ul&gt;
   &lt;li&gt;ラーメン&lt;/li&gt;
   &lt;li&gt;カレー&lt;/li&gt;
   &lt;li&gt;寿司&lt;/li&gt;
-&lt;/ul&gt;
-            </div>
+&lt;/ul&gt;</div>
             <div class="preview-box">
                 <div class="preview-label">表示結果</div>
                 <ul style="margin: 0;">
@@ -438,13 +1045,11 @@
         <div class="tag-card">
             <div class="tag-name">&lt;ol&gt; &lt;li&gt; 番号付きリスト</div>
             <div class="tag-description">番号付きのリストを作ります。順番が大事な項目に使います。</div>
-            <div class="code-example">
-&lt;ol&gt;
+            <div class="code-example">&lt;ol&gt;
   &lt;li&gt;起きる&lt;/li&gt;
   &lt;li&gt;朝ごはんを食べる&lt;/li&gt;
   &lt;li&gt;学校に行く&lt;/li&gt;
-&lt;/ol&gt;
-            </div>
+&lt;/ol&gt;</div>
             <div class="preview-box">
                 <div class="preview-label">表示結果</div>
                 <ol style="margin: 0;">
@@ -459,9 +1064,7 @@
         <div class="tag-card">
             <div class="tag-name">&lt;a href="URL"&gt; リンクタグ</div>
             <div class="tag-description">他のページへのリンクを作ります。クリックするとそのページに飛びます。</div>
-            <div class="code-example">
-&lt;a href="https://www.google.com"&gt;Googleで検索&lt;/a&gt;
-            </div>
+            <div class="code-example">&lt;a href="https://www.google.com"&gt;Googleで検索&lt;/a&gt;</div>
             <div class="preview-box">
                 <div class="preview-label">表示結果</div>
                 <a href="https://www.google.com" style="margin: 0;">Googleで検索</a>
@@ -475,9 +1078,7 @@
         <div class="tag-card">
             <div class="tag-name">&lt;img src="画像URL" alt="説明"&gt; 画像タグ</div>
             <div class="tag-description">画像を表示します。srcに画像のURL、altに画像の説明を書きます。</div>
-            <div class="code-example">
-&lt;img src="画像URL" alt="猫の写真"&gt;
-            </div>
+            <div class="code-example">&lt;img src="画像URL" alt="猫の写真"&gt;</div>
             <div class="preview-box">
                 <div class="preview-label">表示結果</div>
                 <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=200" alt="猫の写真" style="max-width: 200px; border-radius: 5px;">
@@ -508,8 +1109,7 @@
     <div class="section">
         <h2>✏️ 完成例</h2>
         <p>これらのタグを組み合わせて作ったページの例です：</p>
-        <div class="code-example">
-&lt;h1&gt;私の好きなもの紹介&lt;/h1&gt;
+        <div class="code-example">&lt;h1&gt;私の好きなもの紹介&lt;/h1&gt;
 
 &lt;h2&gt;好きな食べ物&lt;/h2&gt;
 &lt;ul&gt;
@@ -523,8 +1123,7 @@
 &lt;img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=300" alt="猫の写真"&gt;
 
 &lt;h2&gt;よく使うサイト&lt;/h2&gt;
-&lt;p&gt;勉強するときは&lt;a href="https://www.google.com"&gt;Google&lt;/a&gt;で調べます。&lt;/p&gt;
-        </div>
+&lt;p&gt;勉強するときは&lt;a href="https://www.google.com"&gt;Google&lt;/a&gt;で調べます。&lt;/p&gt;</div>
     </div>
 
     <div class="task-box">

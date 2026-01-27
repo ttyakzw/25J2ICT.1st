@@ -1,11 +1,1139 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <title>2つ目のホームページ</title>
-</head>
-<body>
-  <h1>2つ目のページ</h1>
-  <p>ここは page2 のホームページです。</p>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第2回授業：CSSでホームページをデザインしよう</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+        line-height: 1.6;
+      }
+      
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      
+      .header h1 {
+        margin: 0 0 10px 0;
+        font-size: 2em;
+      }
+      
+      .section {
+        background: white;
+        padding: 25px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      
+      .section h2 {
+        color: #667eea;
+        border-bottom: 3px solid #667eea;
+        padding-bottom: 10px;
+        margin-top: 0;
+      }
+      
+      .tag-card {
+        background: #f8f9ff;
+        border-left: 4px solid #667eea;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+      }
+      
+      .tag-name {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #764ba2;
+        margin-bottom: 8px;
+      }
+      
+      .tag-description {
+        color: #555;
+        margin-bottom: 10px;
+      }
+      
+      .code-example {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 15px;
+        border-radius: 5px;
+        font-family: 'Courier New', monospace;
+        overflow-x: auto;
+        margin: 10px 0;
+        white-space: pre;
+      }
+      
+      .preview-box {
+        background: white;
+        border: 2px solid #667eea;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 10px 0;
+      }
+      
+      .preview-label {
+        background: #667eea;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-size: 0.9em;
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+      
+      .tips {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+      
+      .tips strong {
+        color: #856404;
+      }
+
+      .important-box {
+        background: #f8d7da;
+        border-left: 4px solid #dc3545;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+
+      .important-box strong {
+        color: #721c24;
+      }
+      
+      .task-box {
+        background: #d1ecf1;
+        border-left: 4px solid #17a2b8;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+      
+      .task-box h3 {
+        margin-top: 0;
+        color: #0c5460;
+      }
+      
+      ul.checklist {
+        list-style: none;
+        padding-left: 0;
+      }
+      
+      ul.checklist li:before {
+        content: "✓ ";
+        color: #28a745;
+        font-weight: bold;
+        margin-right: 8px;
+      }
+
+      .step-number {
+        display: inline-block;
+        background: #667eea;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 30px;
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      .step-item {
+        margin: 15px 0;
+        padding: 15px;
+        background: #f8f9ff;
+        border-radius: 5px;
+      }
+
+      .info-box {
+        background: #d4edda;
+        border-left: 4px solid #28a745;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+
+      .info-box strong {
+        color: #155724;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+      }
+
+      table th {
+        background-color: #667eea;
+        color: white;
+        font-weight: bold;
+      }
+
+      table tr:nth-child(even) {
+        background-color: #f8f9ff;
+      }
+
+      .color-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+        margin: 15px 0;
+      }
+
+      .color-item {
+        padding: 15px;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: bold;
+        border: 2px solid #ddd;
+      }
+
+      .footer-section {
+        text-align: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .footer-section h2 {
+        color: white;
+        border: none;
+      }
+
+      .codepen-link {
+        margin-top: 20px;
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>🎨 第2回授業：CSSでホームページをデザインしよう</h1>
+      <p>色やフォントを変えて、自分だけのデザインを作ろう！</p>
+    </div>
+
+    <!-- CSSって何？ -->
+    <div class="section">
+      <h2>💡 CSSって何？</h2>
+      
+      <div class="info-box">
+        <strong>🌟 CSSは「Webページの見た目」を作るものです</strong><br>
+        前回作ったHTMLに色やデザインを付けて、もっとカッコよくしましょう！
+      </div>
+
+      <h3>CSSの正式名称</h3>
+      <p><strong>CSS = Cascading Style Sheets</strong></p>
+      <ul>
+        <li><strong>Style：</strong> スタイル（見た目）</li>
+        <li><strong>Sheets：</strong> シート（設定をまとめたもの）</li>
+      </ul>
+
+      <h3>HTMLとCSSの役割分担</h3>
+      <div class="tag-card">
+        <div class="tag-name">📄 HTML = 構造</div>
+        <div class="tag-description">
+          「これは見出し」「これは段落」というページの骨組みを作る
+        </div>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">🎨 CSS = 見た目</div>
+        <div class="tag-description">
+          色、大きさ、配置など、デザインを整える
+        </div>
+      </div>
+
+      <h3>例えば...</h3>
+      <div class="preview-box">
+        <div class="preview-label">HTMLだけ（地味）</div>
+        <h1 style="all: revert; font-size: 2em; font-weight: bold; margin: 0;">私のページ</h1>
+        <p style="all: revert; margin: 0;">こんにちは</p>
+      </div>
+
+      <div class="preview-box">
+        <div class="preview-label">HTML + CSS（カラフル）</div>
+        <h1 style="color: blue; font-size: 40px; text-align: center; margin: 0;">私のページ</h1>
+        <p style="color: gray; font-size: 18px; margin: 0;">こんにちは</p>
+      </div>
+
+      <p>→ 同じ内容でも、CSSを使うと印象が大きく変わります！</p>
+    </div>
+
+    <!-- CSSの基本的な書き方 -->
+    <div class="section">
+      <h2>✏️ CSSの基本的な書き方</h2>
+
+      <h3>基本の形</h3>
+      <div class="code-example">セレクタ {
+  プロパティ: 値;
+}</div>
+
+      <h3>具体例</h3>
+      <div class="code-example">h1 {
+  color: blue;
+  font-size: 40px;
+}</div>
+
+      <h3>各部分の説明</h3>
+      <div class="tag-card">
+        <div class="tag-name">セレクタ（h1）</div>
+        <div class="tag-description">
+          どのタグに適用するか（h1, h2, p など）
+        </div>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">プロパティ（color）</div>
+        <div class="tag-description">
+          何を変えるか（色、大きさ、位置など）
+        </div>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">値（blue）</div>
+        <div class="tag-description">
+          どんな値にするか（blue, 20px など）
+        </div>
+      </div>
+
+      <div class="important-box">
+        <strong>⚠️ 重要なルール</strong><br>
+        • プロパティと値の間は「:（コロン）」<br>
+        • 各行の最後に「;（セミコロン）」を必ず付ける<br>
+        • { } で囲む（波括弧・中括弧）<br>
+        • 全て半角英数字で書く
+      </div>
+    </div>
+
+    <!-- CodePenでCSSを書く -->
+    <div class="section">
+      <h2>📝 CodePenでCSSを書く準備</h2>
+
+      <div class="step-item">
+        <h3><span class="step-number">1</span>前回のCodePenを開く</h3>
+        <p>第1回で作成したCodePenにログインして開きましょう。</p>
+        <div class="tips">
+          <strong>💡 ヒント：</strong> CodePenにログイン→「Your Work」から前回の作品を探す
+        </div>
+      </div>
+
+      <div class="step-item">
+        <h3><span class="step-number">2</span>CSSエリアを確認</h3>
+        <p>CodePenの左下に「CSS」というエリアがあります。今日はここを使います！</p>
+      </div>
+
+      <div class="step-item">
+        <h3><span class="step-number">3</span>CSSを書いてみよう</h3>
+        <p>CSSエリアに書くと、すぐに右側のプレビューに反映されます。</p>
+      </div>
+    </div>
+
+    <!-- 今日学ぶCSSプロパティ -->
+    <div class="section">
+      <h2>🎨 今日学ぶCSSプロパティ</h2>
+
+      <!-- color -->
+      <div class="tag-card">
+        <div class="tag-name">color - 文字の色</div>
+        <div class="tag-description">
+          文字の色を変えます。
+        </div>
+        <div class="code-example">h1 {
+  color: blue;
+}
+
+p {
+  color: red;
+}</div>
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <h1 style="color: blue; margin: 0;">これは青い見出し</h1>
+          <p style="color: red; margin: 0;">これは赤い段落</p>
+        </div>
+
+        <h4>使える色の例：</h4>
+        <div class="color-grid">
+          <div class="color-item" style="background-color: red; color: white;">red</div>
+          <div class="color-item" style="background-color: blue; color: white;">blue</div>
+          <div class="color-item" style="background-color: green; color: white;">green</div>
+          <div class="color-item" style="background-color: purple; color: white;">purple</div>
+          <div class="color-item" style="background-color: orange; color: white;">orange</div>
+          <div class="color-item" style="background-color: pink;">pink</div>
+        </div>
+
+        <div class="tips">
+          <strong>💡 カラーコード：</strong> #FF6B6B のような16進数コードでもっと細かい色が指定できます
+        </div>
+      </div>
+
+      <!-- font-size -->
+      <div class="tag-card">
+        <div class="tag-name">font-size - 文字の大きさ</div>
+        <div class="tag-description">
+          文字のサイズを変えます。単位は px（ピクセル）を使います。
+        </div>
+        <div class="code-example">h1 {
+  font-size: 50px;
+}
+
+p {
+  font-size: 18px;
+}</div>
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <h1 style="font-size: 50px; margin: 0;">大きな見出し</h1>
+          <p style="font-size: 18px; margin: 0;">普通サイズの段落</p>
+        </div>
+        <div class="tips">
+          <strong>💡 ポイント：</strong> 数字が大きいほど文字が大きくなります
+        </div>
+      </div>
+
+      <!-- background-color -->
+      <div class="tag-card">
+        <div class="tag-name">background-color - 背景色</div>
+        <div class="tag-description">
+          背景の色を変えます。
+        </div>
+        <div class="code-example">body {
+  background-color: lightblue;
+}
+
+h1 {
+  background-color: yellow;
+}</div>
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <div style="background-color: lightblue; padding: 10px;">
+            <h1 style="background-color: yellow; margin: 0; padding: 10px;">黄色い背景の見出し</h1>
+            <p style="margin: 0;">薄い青の背景</p>
+          </div>
+        </div>
+
+        <h4>おすすめの背景色：</h4>
+        <div class="color-grid">
+          <div class="color-item" style="background-color: lightblue;">lightblue</div>
+          <div class="color-item" style="background-color: lightgreen;">lightgreen</div>
+          <div class="color-item" style="background-color: lightyellow;">lightyellow</div>
+          <div class="color-item" style="background-color: lavender;">lavender</div>
+          <div class="color-item" style="background-color: lightpink;">lightpink</div>
+          <div class="color-item" style="background-color: lightgray;">lightgray</div>
+        </div>
+      </div>
+
+      <!-- text-align -->
+      <div class="tag-card">
+        <div class="tag-name">text-align - 文字の位置</div>
+        <div class="tag-description">
+          文字を左・中央・右に揃えます。
+        </div>
+        <div class="code-example">h1 {
+  text-align: center;
+}
+
+p {
+  text-align: right;
+}</div>
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <h1 style="text-align: center; margin: 0;">中央揃え</h1>
+          <p style="text-align: right; margin: 0;">右揃え</p>
+          <p style="text-align: left; margin: 0;">左揃え（デフォルト）</p>
+        </div>
+        <div class="tips">
+          <strong>💡 値：</strong> left（左）、center（中央）、right（右）
+        </div>
+      </div>
+
+      <!-- font-weight -->
+      <div class="tag-card">
+        <div class="tag-name">font-weight - 文字の太さ</div>
+        <div class="tag-description">
+          文字を太くしたり細くしたりします。
+        </div>
+        <div class="code-example">h2 {
+  font-weight: bold;
+}
+
+p {
+  font-weight: normal;
+}</div>
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <h2 style="font-weight: bold; margin: 0;">太字の見出し</h2>
+          <p style="font-weight: normal; margin: 0;">普通の太さ</p>
+        </div>
+      </div>
+
+      <!-- padding / margin -->
+      <div class="tag-card">
+        <div class="tag-name">padding / margin - 余白</div>
+        <div class="tag-description">
+          padding = 内側の余白、margin = 外側の余白
+        </div>
+        <div class="code-example">h1 {
+  padding: 20px;
+  margin: 30px;
+  background-color: lightblue;
+}</div>
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <h1 style="padding: 20px; margin: 30px; background-color: lightblue;">余白のある見出し</h1>
+        </div>
+        <div class="tips">
+          <strong>💡 違い：</strong> paddingは要素の内側、marginは要素の外側の余白です
+        </div>
+      </div>
+
+      <!-- border -->
+      <div class="tag-card">
+        <div class="tag-name">border - 枠線</div>
+        <div class="tag-description">
+          要素の周りに枠線を付けます。
+        </div>
+        <div class="code-example">h1 {
+  border: 3px solid blue;
+}
+
+p {
+  border: 1px dashed red;
+}</div>
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <h1 style="border: 3px solid blue; margin: 0; padding: 10px;">青い枠線の見出し</h1>
+          <p style="border: 1px dashed red; margin: 10px 0; padding: 10px;">赤い点線の段落</p>
+        </div>
+        <div class="tips">
+          <strong>💡 書き方：</strong> border: 太さ 種類 色;<br>
+          種類 = solid（実線）、dashed（点線）、dotted（点々）
+        </div>
+      </div>
+
+      <!-- border-radius -->
+      <div class="tag-card">
+        <div class="tag-name">border-radius - 角の丸み</div>
+        <div class="tag-description">
+          要素の角を丸くします。
+        </div>
+        <div class="code-example">h1 {
+  background-color: lightblue;
+  padding: 20px;
+  border-radius: 10px;
+}</div>
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <h1 style="background-color: lightblue; padding: 20px; border-radius: 10px; margin: 0;">角が丸い見出し</h1>
+        </div>
+        <div class="tips">
+          <strong>💡 ポイント：</strong> 数字が大きいほど丸くなります
+        </div>
+      </div>
+    </div>
+
+    <!-- レイアウトの基本 -->
+    <div class="section">
+      <h2>📐 レイアウトの基本</h2>
+
+      <div class="info-box">
+        <strong>🌟 レイアウトとは？</strong><br>
+        要素の配置や並び方を整えることです。見やすく、使いやすいページを作るために大切です。
+      </div>
+
+      <h3>width と height - 幅と高さ</h3>
+      <div class="tag-card">
+        <div class="tag-name">要素の大きさを指定</div>
+        <div class="tag-description">
+          width = 幅、height = 高さを指定します。
+        </div>
+        <div class="code-example">div {
+  width: 300px;
+  height: 200px;
+  background-color: lightblue;
+}</div>
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <div style="width: 300px; height: 200px; background-color: lightblue;">
+            幅300px、高さ200pxのボックス
+          </div>
+        </div>
+      </div>
+
+      <h3>max-width - 最大幅</h3>
+      <div class="tag-card">
+        <div class="tag-name">要素の最大幅を制限</div>
+        <div class="tag-description">
+          画面サイズに応じて自動調整される幅を指定します。
+        </div>
+        <div class="code-example">img {
+  max-width: 100%;
+  height: auto;
+}</div>
+        <div class="tips">
+          <strong>💡 重要：</strong> 画像が画面からはみ出さないようにするテクニックです
+        </div>
+      </div>
+
+      <h3>display - 表示方法</h3>
+      <div class="tag-card">
+        <div class="tag-name">要素の並び方を変える</div>
+        <div class="tag-description">
+          block = 縦に並ぶ、inline = 横に並ぶ、inline-block = 横に並ぶけど幅や高さを指定できる
+        </div>
+        <div class="code-example">p {
+  display: inline-block;
+  width: 200px;
+  background-color: lightblue;
+  margin: 5px;
+}</div>
+      </div>
+    </div>
+
+    <!-- レスポンシブデザイン -->
+    <div class="section">
+      <h2>📱 レスポンシブデザインとは？</h2>
+
+      <div class="info-box">
+        <strong>🌟 レスポンシブデザインとは？</strong><br>
+        スマホ、タブレット、パソコンなど、どんな画面サイズでも見やすく表示されるデザインのことです。
+      </div>
+
+      <h3>なぜ大切？</h3>
+      <ul>
+        <li>今は多くの人がスマホでWebページを見ている</li>
+        <li>画面サイズに合わせて自動調整されると便利</li>
+        <li>プロのWebサイトは全てレスポンシブ対応している</li>
+      </ul>
+
+      <h3>基本テクニック</h3>
+
+      <div class="tag-card">
+        <div class="tag-name">1. 画像を画面に合わせる</div>
+        <div class="code-example">img {
+  max-width: 100%;
+  height: auto;
+}</div>
+        <div class="tag-description">
+          画像が画面からはみ出さず、画面幅に合わせて自動で縮小されます。
+        </div>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">2. コンテンツの幅を制限</div>
+        <div class="code-example">body {
+  max-width: 800px;
+  margin: 0 auto;
+}</div>
+        <div class="tag-description">
+          大きな画面でも読みやすい幅に制限し、中央に配置します。
+        </div>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">3. %（パーセント）を使う</div>
+        <div class="code-example">div {
+  width: 80%;
+  margin: 0 auto;
+}</div>
+        <div class="tag-description">
+          画面幅の80%の大きさになるので、どんな画面でも自動調整されます。
+        </div>
+      </div>
+
+      <div class="important-box">
+        <strong>🎯 今日覚えるレスポンシブの基本</strong><br>
+        • 画像に max-width: 100%; を付ける<br>
+        • 固定のpxより、%を使うと柔軟になる<br>
+        • スマホでも見やすいデザインを意識する
+      </div>
+
+      <h3>スマホで確認する方法</h3>
+      <div class="step-item">
+        <h4><span class="step-number">1</span>CodePenのプレビューで確認</h4>
+        <p>プレビュー画面の幅を縮めてみると、スマホサイズでどう見えるか確認できます。</p>
+      </div>
+
+      <div class="step-item">
+        <h4><span class="step-number">2</span>実際のスマホで見る</h4>
+        <p>CodePenのURLをスマホで開いて確認してみましょう。</p>
+      </div>
+    </div>
+
+    <!-- CSSプロパティ一覧表 -->
+    <div class="section">
+      <h2>📋 CSSプロパティ一覧表</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>プロパティ</th>
+            <th>意味</th>
+            <th>例</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>color</td>
+            <td>文字の色</td>
+            <td>color: red;</td>
+          </tr>
+          <tr>
+            <td>font-size</td>
+            <td>文字の大きさ</td>
+            <td>font-size: 20px;</td>
+          </tr>
+          <tr>
+            <td>background-color</td>
+            <td>背景色</td>
+            <td>background-color: lightblue;</td>
+          </tr>
+          <tr>
+            <td>text-align</td>
+            <td>文字の位置</td>
+            <td>text-align: center;</td>
+          </tr>
+          <tr>
+            <td>font-weight</td>
+            <td>文字の太さ</td>
+            <td>font-weight: bold;</td>
+          </tr>
+          <tr>
+            <td>padding</td>
+            <td>内側の余白</td>
+            <td>padding: 10px;</td>
+          </tr>
+          <tr>
+            <td>margin</td>
+            <td>外側の余白</td>
+            <td>margin: 20px;</td>
+          </tr>
+          <tr>
+            <td>border</td>
+            <td>枠線</td>
+            <td>border: 2px solid blue;</td>
+          </tr>
+          <tr>
+            <td>border-radius</td>
+            <td>角の丸み</td>
+            <td>border-radius: 10px;</td>
+          </tr>
+          <tr>
+            <td>width</td>
+            <td>幅</td>
+            <td>width: 300px;</td>
+          </tr>
+          <tr>
+            <td>max-width</td>
+            <td>最大幅</td>
+            <td>max-width: 100%;</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 課題 -->
+    <div class="task-box">
+      <h3>📝 今日の課題</h3>
+      <p><strong>第1回で作ったホームページをCSSで改良しよう！</strong></p>
+      
+      <h4>必須条件：</h4>
+      <p>以下のCSSプロパティを使うこと</p>
+      <ul class="checklist">
+        <li>color（文字の色）- 最低2箇所</li>
+        <li>font-size（文字の大きさ）- 最低2箇所</li>
+        <li>background-color（背景色）- 最低1箇所</li>
+        <li>text-align（文字の位置）- 最低1箇所</li>
+        <li>その他のプロパティ（border, border-radius, padding, marginなど）- 最低3つ</li>
+      </ul>
+
+      <h4>レスポンシブデザインの必須項目：</h4>
+      <ul class="checklist">
+        <li>画像に max-width: 100%; を設定する</li>
+        <li>body に max-width を設定して読みやすい幅にする</li>
+      </ul>
+
+      <h4>デザインのヒント：</h4>
+      <ul>
+        <li>見出し（h1, h2）は目立つ色や大きさにする</li>
+        <li>背景色は薄い色がおすすめ（読みやすい）</li>
+        <li>文字色と背景色のコントラストに注意</li>
+        <li>border-radiusで角を丸くすると柔らかい印象に</li>
+        <li>paddingとmarginで余白を作ると読みやすくなる</li>
+        <li>スマホでも見やすいか確認しよう</li>
+      </ul>
+
+      <h4>提出するもの：</h4>
+      <ul class="checklist">
+        <li>改良後のCodePenのURL</li>
+        <li>振り返り（使ったCSSプロパティ、工夫した点、難しかったこと、レスポンシブ対応でやったこと）</li>
+      </ul>
+    </div>
+
+    <!-- 発展課題 -->
+    <div class="section">
+      <h2>🚀 発展課題（HTMLをすでに知っている人向け）</h2>
+      
+      <div class="info-box">
+        <strong>💡 基本課題が早く終わった人へ</strong><br>
+        以下の発展課題に挑戦してみましょう！より高度なCSSテクニックを学べます。
+      </div>
+
+      <h3>発展課題1：クラスセレクタを使おう</h3>
+      <div class="tag-card">
+        <div class="tag-name">特定の要素だけにスタイルを適用</div>
+        <div class="tag-description">
+          今まではh1やpなど、全ての要素に同じスタイルが適用されました。クラスを使うと、特定の要素だけにスタイルを適用できます。
+        </div>
+        
+        <h4>HTML側：</h4>
+        <div class="code-example">&lt;p class="important"&gt;これは重要な段落です&lt;/p&gt;
+&lt;p&gt;これは普通の段落です&lt;/p&gt;</div>
+
+        <h4>CSS側：</h4>
+        <div class="code-example">.important {
+  color: red;
+  font-weight: bold;
+  background-color: lightyellow;
+  padding: 10px;
+  border-left: 4px solid red;
+}</div>
+
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <p style="color: red; font-weight: bold; background-color: lightyellow; padding: 10px; border-left: 4px solid red; margin: 0;">これは重要な段落です</p>
+          <p style="margin: 10px 0 0 0;">これは普通の段落です</p>
+        </div>
+
+        <div class="tips">
+          <strong>💡 ポイント：</strong> CSS側では .（ドット）を付けてクラス名を書きます
+        </div>
+      </div>
+
+      <h3>発展課題2：ホバーエフェクトを追加しよう</h3>
+      <div class="tag-card">
+        <div class="tag-name">マウスを乗せたときに色が変わる</div>
+        <div class="tag-description">
+          :hover を使うと、マウスを乗せたときだけスタイルを変えられます。
+        </div>
+        
+        <div class="code-example">a {
+  color: blue;
+  text-decoration: none;
+}
+
+a:hover {
+  color: red;
+  text-decoration: underline;
+}</div>
+
+        <div class="tips">
+          <strong>💡 試してみよう：</strong> リンクにホバーエフェクトを付けると、クリックできることが分かりやすくなります
+        </div>
+      </div>
+
+      <h3>発展課題3：グラデーション背景を作ろう</h3>
+      <div class="tag-card">
+        <div class="tag-name">2色以上の色が混ざった背景</div>
+        <div class="tag-description">
+          linear-gradient を使うと、色が徐々に変わる背景が作れます。
+        </div>
+        
+        <div class="code-example">body {
+  background: linear-gradient(to right, lightblue, lightpink);
+}
+
+h1 {
+  background: linear-gradient(to bottom, #667eea, #764ba2);
+  color: white;
+  padding: 20px;
+}</div>
+
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <div style="background: linear-gradient(to right, lightblue, lightpink); padding: 20px;">
+            <h1 style="background: linear-gradient(to bottom, #667eea, #764ba2); color: white; padding: 20px; margin: 0; border-radius: 10px;">グラデーション見出し</h1>
+          </div>
+        </div>
+
+        <div class="tips">
+          <strong>💡 方向：</strong> to right（左→右）、to bottom（上→下）、to top（下→上）、to left（右→左）
+        </div>
+      </div>
+
+      <h3>発展課題4：影を付けよう</h3>
+      <div class="tag-card">
+        <div class="tag-name">box-shadow で立体感を出す</div>
+        <div class="tag-description">
+          影を付けると、要素が浮き上がって見えます。
+        </div>
+        
+        <div class="code-example">h1 {
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}</div>
+
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <h1 style="background-color: white; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin: 0;">影付きの見出し</h1>
+        </div>
+
+        <div class="tips">
+          <strong>💡 書き方：</strong> box-shadow: 横の位置 縦の位置 ぼかし 色;
+        </div>
+      </div>
+
+      <h3>発展課題5：Flexboxでレイアウトを整えよう</h3>
+      <div class="tag-card">
+        <div class="tag-name">要素を横並びにする</div>
+        <div class="tag-description">
+          Flexboxを使うと、要素を簡単に横並びにできます。
+        </div>
+        
+        <h4>HTML側：</h4>
+        <div class="code-example">&lt;div class="container"&gt;
+  &lt;div class="box"&gt;ボックス1&lt;/div&gt;
+  &lt;div class="box"&gt;ボックス2&lt;/div&gt;
+  &lt;div class="box"&gt;ボックス3&lt;/div&gt;
+&lt;/div&gt;</div>
+
+        <h4>CSS側：</h4>
+        <div class="code-example">.container {
+  display: flex;
+  gap: 10px;
+}
+
+.box {
+  background-color: lightblue;
+  padding: 20px;
+  border-radius: 10px;
+  flex: 1;
+}</div>
+
+        <div class="preview-box">
+          <div class="preview-label">表示結果</div>
+          <div style="display: flex; gap: 10px;">
+            <div style="background-color: lightblue; padding: 20px; border-radius: 10px; flex: 1; text-align: center;">ボックス1</div>
+            <div style="background-color: lightblue; padding: 20px; border-radius: 10px; flex: 1; text-align: center;">ボックス2</div>
+            <div style="background-color: lightblue; padding: 20px; border-radius: 10px; flex: 1; text-align: center;">ボックス3</div>
+          </div>
+        </div>
+
+        <div class="tips">
+          <strong>💡 Flexboxの便利なプロパティ：</strong><br>
+          • justify-content: center; （中央揃え）<br>
+          • align-items: center; （縦方向の中央揃え）<br>
+          • flex-direction: column; （縦並び）
+        </div>
+      </div>
+
+      <h3>発展課題6：アニメーションを追加しよう</h3>
+      <div class="tag-card">
+        <div class="tag-name">動きのある要素を作る</div>
+        <div class="tag-description">
+          transitionを使うと、スタイルの変化がスムーズになります。
+        </div>
+        
+        <div class="code-example">button {
+  background-color: blue;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+button:hover {
+  background-color: darkblue;
+  transform: scale(1.1);
+}</div>
+
+        <div class="tips">
+          <strong>💡 transition：</strong> all 0.3s は「全てのプロパティを0.3秒かけて変化させる」という意味です
+        </div>
+      </div>
+    </div>
+
+    <!-- HTMLを知っている人向けの補足 -->
+    <div class="section">
+      <h2>📚 HTMLをすでに知っている人向けの補足情報</h2>
+
+      <h3>CSSの詳細セレクタ</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>セレクタ</th>
+            <th>意味</th>
+            <th>例</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>.クラス名</td>
+            <td>特定のクラスを持つ要素</td>
+            <td>.important { color: red; }</td>
+          </tr>
+          <tr>
+            <td>#id名</td>
+            <td>特定のIDを持つ要素</td>
+            <td>#header { font-size: 30px; }</td>
+          </tr>
+          <tr>
+            <td>要素:hover</td>
+            <td>マウスを乗せたとき</td>
+            <td>a:hover { color: red; }</td>
+          </tr>
+          <tr>
+            <td>要素 要素</td>
+            <td>子孫要素（入れ子）</td>
+            <td>div p { color: blue; }</td>
+          </tr>
+          <tr>
+            <td>要素 > 要素</td>
+            <td>直接の子要素</td>
+            <td>ul > li { font-weight: bold; }</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>よく使う単位</h3>
+      <div class="tag-card">
+        <div class="tag-name">px, %, em, rem の違い</div>
+        <ul>
+          <li><strong>px（ピクセル）：</strong> 絶対的な大きさ。20px = 画面上の20ドット</li>
+          <li><strong>%（パーセント）：</strong> 親要素に対する割合。width: 50% = 親の半分</li>
+          <li><strong>em：</strong> 親要素のフォントサイズに対する倍率。2em = 親の2倍</li>
+          <li><strong>rem：</strong> ルート要素（html）のフォントサイズに対する倍率</li>
+        </ul>
+        <div class="tips">
+          <strong>💡 おすすめ：</strong> レスポンシブデザインには % や rem が便利です
+        </div>
+      </div>
+
+      <h3>カラーコードの詳細</h3>
+      <div class="tag-card">
+        <div class="tag-name">16進数カラーコード</div>
+        <div class="tag-description">
+          #RRGGBB の形式で、RR=赤、GG=緑、BB=青の量を16進数で指定します。
+        </div>
+        <ul>
+          <li>#FF0000 = 赤（R=最大、G=0、B=0）</li>
+          <li>#00FF00 = 緑（R=0、G=最大、B=0）</li>
+          <li>#0000FF = 青（R=0、G=0、B=最大）</li>
+          <li>#FFFFFF = 白（全て最大）</li>
+          <li>#000000 = 黒（全て0）</li>
+        </ul>
+        <div class="tips">
+          <strong>💡 便利ツール：</strong> 「color picker」で検索すると、視覚的に色を選んでコードを取得できます
+        </div>
+      </div>
+
+      <h3>CSSの優先順位</h3>
+      <div class="tag-card">
+        <div class="tag-name">同じ要素に複数のスタイルが指定された場合</div>
+        <div class="tag-description">
+          優先順位（高い順）：
+        </div>
+        <ol>
+          <li>インラインスタイル（HTML内に直接書く style="..."）</li>
+          <li>IDセレクタ（#id）</li>
+          <li>クラスセレクタ（.class）</li>
+          <li>要素セレクタ（h1, p など）</li>
+        </ol>
+        <div class="tips">
+          <strong>💡 ポイント：</strong> より具体的なセレクタほど優先されます
+        </div>
+      </div>
+
+      <h3>開発者ツールの使い方</h3>
+      <div class="step-item">
+        <h4>ブラウザの開発者ツールでCSSを確認・編集</h4>
+        <ol>
+          <li>CodePenのプレビュー画面で右クリック→「検証」または「要素を調査」</li>
+          <li>要素にマウスを乗せると、該当部分がハイライトされる</li>
+          <li>右側のパネルでCSSを確認・一時的に編集できる</li>
+          <li>どのCSSが適用されているか、どれが上書きされているかが分かる</li>
+        </ol>
+        <div class="tips">
+          <strong>💡 プロの技：</strong> 開発者ツールで試してから、CodePenに反映させると効率的です
+        </div>
+      </div>
+    </div>
+
+    <!-- よくあるエラー -->
+    <div class="section">
+      <h2>⚠️ よくあるエラーと解決法</h2>
+      
+      <div class="tag-card">
+        <div class="tag-name">❌ CSSが効かない</div>
+        <div class="tag-description">
+          <strong>原因：</strong> セミコロン（;）を忘れている<br>
+          <strong>解決法：</strong> 各行の最後に ; を付ける
+        </div>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">❌ 色が変わらない</div>
+        <div class="tag-description">
+          <strong>原因：</strong> 全角で書いている、またはスペルミス<br>
+          <strong>解決法：</strong> 半角英数字で書き直す、color のスペルを確認
+        </div>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">❌ デザインが崩れた</div>
+        <div class="tag-description">
+          <strong>原因：</strong> 波括弧 { } の閉じ忘れ<br>
+          <strong>解決法：</strong> { と } のペアを確認する
+        </div>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">❌ 背景色が変わらない</div>
+        <div class="tag-description">
+          <strong>原因：</strong> background-color のスペルミス<br>
+          <strong>解決法：</strong> ハイフン（-）を忘れずに、background-color と書く
+        </div>
+      </div>
+    </div>
+
+    <!-- 成功のコツ -->
+    <div class="section">
+      <h2>🎯 成功のコツ</h2>
+      <ul class="checklist">
+        <li>セミコロン（;）を忘れずに付ける</li>
+        <li>波括弧 { } はペアで使う</li>
+        <li>色の組み合わせを工夫する（薄い背景色 + 濃い文字色）</li>
+        <li>何度も試して、自分好みのデザインを探す</li>
+        <li>困ったらこの資料を見返そう</li>
+        <li>失敗を恐れずに色々試してみよう！</li>
+      </ul>
+    </div>
+
+    <div class="section footer-section">
+      <h2>🎉 頑張ってください！</h2>
+      <p>自分だけのデザインを楽しんでね</p>
+      <p class="codepen-link">💻 CodePen: https://codepen.io/</p>
+    </div>
+  </body>
 </html>

@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>第3回授業：複数ページを作成してリンクでつなごう</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+        line-height: 1.7;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+
+      .header h1 {
+        margin: 0 0 10px 0;
+        font-size: 2em;
+      }
+
+      .section {
+        background: white;
+        padding: 25px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .section h2 {
+        color: #667eea;
+        border-bottom: 3px solid #667eea;
+        padding-bottom: 10px;
+        margin-top: 0;
+      }
+
+      .tag-card {
+        background: #f8f9ff;
+        border-left: 4px solid #667eea;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+      }
+
+      .tag-name {
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #764ba2;
+        margin-bottom: 8px;
+      }
+
+      .tag-description {
+        color: #555;
+        margin-bottom: 10px;
+      }
+
+      .code-example {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 15px;
+        border-radius: 5px;
+        font-family: "Courier New", monospace;
+        overflow-x: auto;
+        margin: 10px 0;
+        white-space: pre;
+      }
+
+      .preview-box {
+        background: white;
+        border: 2px solid #667eea;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 10px 0;
+      }
+
+      .preview-label {
+        background: #667eea;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-size: 0.9em;
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+
+      .tips {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+
+      .tips strong {
+        color: #856404;
+      }
+
+      .important-box {
+        background: #f8d7da;
+        border-left: 4px solid #dc3545;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+
+      .important-box strong {
+        color: #721c24;
+      }
+
+      .task-box {
+        background: #d1ecf1;
+        border-left: 4px solid #17a2b8;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+
+      .task-box h3 {
+        margin-top: 0;
+        color: #0c5460;
+      }
+
+      ul.checklist {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      ul.checklist li:before {
+        content: "✓ ";
+        color: #28a745;
+        font-weight: bold;
+        margin-right: 8px;
+      }
+
+      .step-number {
+        display: inline-block;
+        background: #667eea;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 30px;
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      .step-item {
+        margin: 15px 0;
+        padding: 15px;
+        background: #f8f9ff;
+        border-radius: 5px;
+      }
+
+      .info-box {
+        background: #d4edda;
+        border-left: 4px solid #28a745;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+
+      .info-box strong {
+        color: #155724;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+      }
+
+      table th {
+        background-color: #667eea;
+        color: white;
+        font-weight: bold;
+      }
+
+      table tr:nth-child(even) {
+        background-color: #f8f9ff;
+      }
+
+      .site-structure {
+        background: #f8f9ff;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 15px 0;
+        font-family: "Courier New", monospace;
+      }
+
+      .site-structure ul {
+        list-style: none;
+        padding-left: 20px;
+      }
+
+      .site-structure li:before {
+        content: "└ ";
+        color: #667eea;
+      }
+
+      .nav-demo {
+        background-color: #333;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 15px 0;
+      }
+
+      .nav-demo ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-demo a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 15px;
+        display: block;
+      }
+
+      .nav-demo a:hover {
+        background-color: #555;
+        border-radius: 5px;
+      }
+
+      .footer-section {
+        text-align: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .footer-section h2 {
+        color: white;
+        border: none;
+      }
+
+      .small {
+        font-size: 0.95em;
+        color: #555;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <h1>🔗 第3回授業：複数ページを作成してリンクでつなごう</h1>
+      <p>本格的なWebサイトを作ろう！ナビゲーションメニューで行き来できるようにします</p>
+    </div>
+
+    <!-- 複数ページって何？ -->
+    <div class="section">
+      <h2>💡 複数ページって何？</h2>
+
+      <div class="info-box">
+        <strong>🌟 本物のWebサイトは複数のページで構成されています</strong><br />
+        たとえば YouTube や Google も、トップページ、検索結果ページ、設定ページなど、たくさんのページがリンクでつながっています。
+      </div>
+
+      <h3>第1回・第2回の復習</h3>
+      <ul>
+        <li><strong>第1回：</strong> HTMLで自己紹介ページを作成（h1, p, ul, img, a タグ）</li>
+        <li><strong>第2回：</strong> CSSでデザインを追加（色、サイズ、レイアウト）</li>
+        <li><strong>第3回（今日）：</strong> 複数ページを作ってリンクでつなぐ</li>
+      </ul>
+
+      <h3>1ページサイト vs 複数ページサイト</h3>
+
+      <div class="tag-card">
+        <div class="tag-name">❌ 1ページサイトの問題点</div>
+        <ul>
+          <li>情報が1ページに詰め込まれて見づらい</li>
+          <li>スクロールが長くなりすぎる</li>
+          <li>目的の情報を探しにくい</li>
+        </ul>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">✅ 複数ページサイトの利点</div>
+        <ul>
+          <li>情報を整理して分けられる</li>
+          <li>見たいページだけを開ける</li>
+          <li>プロフェッショナルな印象</li>
+          <li>更新や追加がしやすい</li>
+        </ul>
+      </div>
+
+      <h3>今日作るサイトの構成（3ページ）</h3>
+      <div class="site-structure">
+        <strong>私のWebサイト（CodePenで作る）</strong>
+        <ul>
+          <li>トップページ（ホーム）</li>
+          <li>プロフィールページ（自己紹介）</li>
+          <li>時間割ページ（テーブルを使う）</li>
+        </ul>
+      </div>
+
+      <div class="important-box">
+        <strong>📌 今日のポイント</strong><br />
+        第1回で作った自己紹介ページは「そのまま使える」ので、新しく作るのは「トップページ」と「時間割ページ」が中心です！
+      </div>
+    </div>
+
+    <!-- CodePenでの複数ページの作り方 -->
+    <div class="section">
+      <h2>📝 CodePenで複数ページを作る方法</h2>
+
+      <div class="important-box">
+        <strong>⚠️ CodePenの制限</strong><br />
+        CodePenは1つのPenに1つのHTMLしか書けません。<br />
+        だから今日は <strong>3つの別々のPen</strong> を作って、<strong>URLでリンク</strong>します。
+      </div>
+
+      <h3>手順（URLを必ずメモ！）</h3>
+
+      <div class="step-item">
+        <h4><span class="step-number">1</span>1つ目のPenを作る（トップページ）</h4>
+        <p>CodePenで「Create」→「Pen」をクリック</p>
+        <p><strong>タイトル：</strong> 「私のサイト - トップページ」</p>
+      </div>
+
+      <div class="step-item">
+        <h4><span class="step-number">2</span>保存してURLを記録</h4>
+        <p>「Save」をクリックして、URLをコピーしてメモ帳などに保存</p>
+        <div class="tips">
+          <strong>💡 ヒント：</strong> 例 https://codepen.io/your-name/pen/abcdefg
+        </div>
+      </div>
+
+      <div class="step-item">
+        <h4><span class="step-number">3</span>2つ目のPen（自己紹介ページ）</h4>
+        <p>第1回・第2回で作った自己紹介ページを使ってOKです（URLを控える）</p>
+        <p>もし作り直すなら、新しいPenを作って保存してURLを記録</p>
+      </div>
+
+      <div class="step-item">
+        <h4><span class="step-number">4</span>3つ目のPenを作る（時間割ページ）</h4>
+        <p>新しいタブで再び「Create」→「Pen」</p>
+        <p><strong>タイトル：</strong> 「私のサイト - 時間割」</p>
+        <p>テーブル（表）を使って時間割を作ります。保存してURLを記録</p>
+      </div>
+
+      <div class="tips">
+        <strong>💡 整理のコツ：</strong> メモ帳に以下のように整理しておくと便利です<br /><br />
+        トップページ：https://codepen.io/...<br />
+        自己紹介ページ：https://codepen.io/...<br />
+        時間割ページ：https://codepen.io/...
+      </div>
+    </div>
+
+    <!-- ページ間リンクの基本 -->
+    <div class="section">
+      <h2>🔗 ページ間リンクの基本</h2>
+
+      <h3>リンクの作り方</h3>
+      <div class="tag-card">
+        <div class="tag-name">基本の形</div>
+        <div class="code-example">&lt;a href="ページのURL"&gt;リンクテキスト&lt;/a&gt;</div>
+        <div class="tag-description">href の中に、飛び先のCodePen URLを入れます。</div>
+      </div>
+
+      <h3>実際の例（トップページにメニューを作る）</h3>
+      <div class="code-example">&lt;h1&gt;私のホームページへようこそ&lt;/h1&gt;
+&lt;p&gt;このサイトでは、私について紹介しています。&lt;/p&gt;
+
+&lt;nav&gt;
+  &lt;h2&gt;メニュー&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="https://codepen.io/.../自己紹介ページのURL"&gt;自己紹介&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="https://codepen.io/.../時間割ページのURL"&gt;時間割&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</div>
+
+      <h3>各ページに「トップに戻る」を入れる</h3>
+      <div class="code-example">&lt;p&gt;&lt;a href="https://codepen.io/.../トップページのURL"&gt;← トップページに戻る&lt;/a&gt;&lt;/p&gt;</div>
+
+      <div class="important-box">
+        <strong>⚠️ 注意点</strong><br />
+        • URLは必ず https:// から始まる完全なURLを使う<br />
+        • URLはブラウザのアドレスバーから正確にコピー<br />
+        • リンクが動くか必ずテストする
+      </div>
+    </div>
+
+    <!-- ナビゲーションメニューの作成 -->
+    <div class="section">
+      <h2>🧭 ナビゲーションメニューの作成</h2>
+
+      <div class="info-box">
+        <strong>🌟 ナビゲーションメニューとは？</strong><br />
+        どのページからでも他のページに行けるようにするメニューです。3ページすべてに同じものを置きます。
+      </div>
+
+      <h3>基本のナビゲーションメニュー</h3>
+
+      <h4>HTML：</h4>
+      <div class="code-example">&lt;nav&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="トップページURL"&gt;ホーム&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="自己紹介ページURL"&gt;自己紹介&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="時間割ページURL"&gt;時間割&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</div>
+
+      <h4>CSS：</h4>
+      <div class="code-example">nav {
+  background-color: #333;
+  padding: 10px;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  display: block;
+}
+
+nav a:hover {
+  background-color: #555;
+  border-radius: 5px;
+}</div>
+
+      <h4>表示イメージ：</h4>
+      <div class="preview-box">
+        <div class="preview-label">ナビゲーションメニュー</div>
+        <div class="nav-demo">
+          <ul>
+            <li><a href="#">ホーム</a></li>
+            <li><a href="#">自己紹介</a></li>
+            <li><a href="#">時間割</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tips">
+        <strong>💡 重要：</strong> このナビゲーションメニューを3つのページすべてにコピー＆ペーストしましょう。
+      </div>
+
+      <h3>ナビゲーションのバリエーション</h3>
+
+      <div class="tag-card">
+        <div class="tag-name">縦並びのナビゲーション</div>
+        <div class="code-example">nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}</div>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">中央揃えのナビゲーション</div>
+        <div class="code-example">nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}</div>
+      </div>
+    </div>
+
+    <!-- ページ内リンク -->
+    <div class="section">
+      <h2>⚓ ページ内リンク（IDジャンプ）</h2>
+
+      <div class="info-box">
+        <strong>🌟 ページ内リンクとは？</strong><br />
+        目次をクリックすると、その場所までスクロールして移動する機能です。
+      </div>
+
+      <h3>使い方</h3>
+
+      <div class="step-item">
+        <h4><span class="step-number">1</span>飛び先にIDを付ける</h4>
+        <div class="code-example">&lt;section id="profile"&gt;
+  &lt;h2&gt;プロフィール&lt;/h2&gt;
+  &lt;p&gt;私の自己紹介...&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section id="schedule"&gt;
+  &lt;h2&gt;時間割&lt;/h2&gt;
+  &lt;p&gt;私の時間割...&lt;/p&gt;
+&lt;/section&gt;</div>
+      </div>
+
+      <div class="step-item">
+        <h4><span class="step-number">2</span>目次からIDにリンク</h4>
+        <div class="code-example">&lt;nav&gt;
+  &lt;h2&gt;目次&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#profile"&gt;プロフィール&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#schedule"&gt;時間割&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</div>
+        <div class="tips">
+          <strong>💡 ポイント：</strong> href="#ID名" のように、#（ハッシュ）を付けます
+        </div>
+      </div>
+
+      <div class="step-item">
+        <h4><span class="step-number">3</span>スムーズスクロール（CSS）</h4>
+        <div class="code-example">html {
+  scroll-behavior: smooth;
+}</div>
+      </div>
+    </div>
+
+    <!-- テーブルの基本 -->
+    <div class="section">
+      <h2>📊 テーブル（表）を作ろう</h2>
+
+      <div class="info-box">
+        <strong>🌟 テーブルとは？</strong><br />
+        データを見やすく整理して表示するための表です。時間割、成績表、価格表などに使います。
+      </div>
+
+      <h3>例：時間割の表</h3>
+
+      <h4>HTML：</h4>
+      <div class="code-example">&lt;h2&gt;月曜日の時間割&lt;/h2&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;時間&lt;/th&gt;
+      &lt;th&gt;科目&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1時間目&lt;/td&gt;
+      &lt;td&gt;国語&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2時間目&lt;/td&gt;
+      &lt;td&gt;数学&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;3時間目&lt;/td&gt;
+      &lt;td&gt;英語&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</div>
+
+      <h4>CSS（見やすくする例）：</h4>
+      <div class="code-example">table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background-color: #667eea;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f8f9ff;
+}</div>
+
+      <h3>テーブルのタグ（覚えたい最低限）</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>タグ</th>
+            <th>意味</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>&lt;table&gt;</td>
+            <td>表全体を囲む</td>
+          </tr>
+          <tr>
+            <td>&lt;tr&gt;</td>
+            <td>表の行（横）</td>
+          </tr>
+          <tr>
+            <td>&lt;th&gt;</td>
+            <td>見出しセル（太字）</td>
+          </tr>
+          <tr>
+            <td>&lt;td&gt;</td>
+            <td>データセル</td>
+          </tr>
+          <tr>
+            <td>&lt;thead&gt;</td>
+            <td>見出しのまとまり</td>
+          </tr>
+          <tr>
+            <td>&lt;tbody&gt;</td>
+            <td>データのまとまり</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 課題 -->
+    <div class="task-box">
+      <h3>📝 今日の課題</h3>
+      <p><strong>3ページのWebサイトを作成しよう！</strong></p>
+
+      <h4>必須条件：</h4>
+      <ul class="checklist">
+        <li>3つのページ（トップ／自己紹介／時間割）を用意する</li>
+        <li>全ページに共通のナビゲーションメニューを置く</li>
+        <li>各ページ間をリンクでつなぐ</li>
+        <li>少なくとも1ページにテーブル（表）を使う</li>
+        <li>画像がある人は「max-width: 100%」でスマホでも見やすく</li>
+      </ul>
+
+      <h4>提出するもの：</h4>
+      <ul class="checklist">
+        <li>3つのCodePen URL（トップ／自己紹介／時間割）</li>
+        <li>振り返り（工夫した点、難しかった点、ページ構成を決めた理由）</li>
+      </ul>
+
+      <div class="important-box">
+        <strong>⚠️ 重要：第1回のページを活用</strong><br />
+        第1回で作った自己紹介ページは、作り直さなくてもOKです。URLをコピーしてリンクでつなげれば完成です！
+      </div>
+
+      <p class="small">
+        できた人は「トップに戻る」リンクや、色の統一、見出しの整理などで“読みやすさ”を上げましょう。
+      </p>
+    </div>
+
+    <!-- 発展課題 -->
+    <div class="section">
+      <h2>🚀 発展課題（早く終わった人向け）</h2>
+
+      <div class="info-box">
+        <strong>💡 基本課題が早く終わった人へ</strong><br />
+        以下の発展課題に挑戦してみましょう！
+      </div>
+
+      <h3>発展1：外部リンクを別タブで開く</h3>
+      <div class="tag-card">
+        <div class="tag-name">target="_blank"</div>
+        <div class="tag-description">外部サイト（YouTubeなど）は別タブで開くことが多いです。</div>
+        <div class="code-example">&lt;a href="https://www.youtube.com" target="_blank"&gt;YouTube&lt;/a&gt;</div>
+        <div class="code-example">a[target="_blank"]::after {
+  content: " 🔗";
+  font-size: 0.8em;
+}</div>
+      </div>
+
+      <h3>発展2：パンくずリスト（今どこ？を表示）</h3>
+      <div class="tag-card">
+        <div class="tag-name">例：ホーム ＞ 自己紹介</div>
+        <div class="tag-description">サイトが大きくなると、今どこにいるかを表示すると親切です。</div>
+        <div class="code-example">&lt;nav class="breadcrumb"&gt;
+  &lt;a href="トップページURL"&gt;ホーム&lt;/a&gt; &gt; 自己紹介
+&lt;/nav&gt;</div>
+      </div>
+    </div>
+
+    <div class="section footer-section">
+      <h2>✅ 今日はここまで</h2>
+      <p>3ページをリンクでつなげたら、本物のWebサイトっぽくなってきます。</p>
+      <p>「分ける」「つなぐ」「見やすくする」を意識して仕上げましょう！</p>
+    </div>
+  </body>
+</html>

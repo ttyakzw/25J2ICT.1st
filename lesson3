@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>第3回授業：複数ページを作成してリンクでつなごう</title>
+    <style>
+      :root {
+        /* 三田国際っぽい：ネイビー×鮮やかブルー（雰囲気寄せ） */
+        --navy: #0b2d5c;
+        --navy-2: #123a73;
+        --blue: #1f6fb2;
+        --sky: #4aa3df;
+        --bg: #f3f7fb;
+        --card: #ffffff;
+        --text: #1b2430;
+        --muted: #5b6b7c;
+
+        --info-bg: #e8f2fb;
+        --info-border: #1f6fb2;
+
+        --tip-bg: #fff6da;
+        --tip-border: #f0b429;
+
+        --warn-bg: #fde8ea;
+        --warn-border: #d64550;
+
+        --task-bg: #e6f6f8;
+        --task-border: #0f7b8d;
+
+        --shadow: 0 2px 8px rgba(11, 45, 92, 0.12);
+      }
+
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: var(--bg);
+        line-height: 1.7;
+        color: var(--text);
+      }
+
+      .header {
+        background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 12px;
+        margin-bottom: 24px;
+        text-align: center;
+        box-shadow: var(--shadow);
+      }
+
+      .header h1 {
+        margin: 0 0 10px 0;
+        font-size: 2em;
+      }
+
+      .section {
+        background: var(--card);
+        padding: 25px;
+        margin-bottom: 18px;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+
+      .section h2 {
+        color: var(--navy);
+        border-bottom: 3px solid var(--blue);
+        padding-bottom: 10px;
+        margin-top: 0;
+      }
+
+      .tag-card {
+        background: #f5f9ff;
+        border-left: 5px solid var(--blue);
+        padding: 15px;
+        margin: 14px 0;
+        border-radius: 10px;
+      }
+
+      .tag-name {
+        font-size: 1.1em;
+        font-weight: 800;
+        color: var(--navy-2);
+        margin-bottom: 6px;
+      }
+
+      .tag-description {
+        color: var(--muted);
+        margin-bottom: 10px;
+      }
+
+      .code-example {
+        background: #142033;
+        color: #eaf2ff;
+        padding: 14px;
+        border-radius: 10px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New",
+          monospace;
+        overflow-x: auto;
+        margin: 10px 0;
+        white-space: pre;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .preview-box {
+        background: white;
+        border: 2px solid var(--blue);
+        padding: 15px;
+        border-radius: 10px;
+        margin: 10px 0;
+      }
+
+      .preview-label {
+        background: var(--blue);
+        color: white;
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-size: 0.9em;
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+
+      .tips {
+        background: var(--tip-bg);
+        border-left: 5px solid var(--tip-border);
+        padding: 15px;
+        margin: 18px 0;
+        border-radius: 10px;
+      }
+
+      .tips strong {
+        color: #7a5200;
+      }
+
+      .important-box {
+        background: var(--warn-bg);
+        border-left: 5px solid var(--warn-border);
+        padding: 15px;
+        margin: 18px 0;
+        border-radius: 10px;
+      }
+
+      .important-box strong {
+        color: #7a1f27;
+      }
+
+      .task-box {
+        background: var(--task-bg);
+        border-left: 6px solid var(--task-border);
+        padding: 20px;
+        margin: 18px 0;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+
+      .task-box h3 {
+        margin-top: 0;
+        color: #0b4f5c;
+      }
+
+      ul.checklist {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      ul.checklist li:before {
+        content: "✓ ";
+        color: #1f8b4c;
+        font-weight: 900;
+        margin-right: 8px;
+      }
+
+      .step-number {
+        display: inline-block;
+        background: var(--blue);
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 30px;
+        font-weight: 800;
+        margin-right: 10px;
+      }
+
+      .step-item {
+        margin: 14px 0;
+        padding: 15px;
+        background: #f5f9ff;
+        border-radius: 12px;
+        border: 1px solid rgba(31, 111, 178, 0.15);
+      }
+
+      .info-box {
+        background: var(--info-bg);
+        border-left: 5px solid var(--info-border);
+        padding: 15px;
+        margin: 18px 0;
+        border-radius: 10px;
+      }
+
+      .info-box strong {
+        color: var(--navy);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #d8e3f0;
+        padding: 12px;
+        text-align: left;
+      }
+
+      table th {
+        background-color: var(--navy);
+        color: white;
+        font-weight: 800;
+      }
+
+      table tr:nth-child(even) {
+        background-color: #f5f9ff;
+      }
+
+      .site-structure {
+        background: #f5f9ff;
+        padding: 18px;
+        border-radius: 12px;
+        margin: 15px 0;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New",
+          monospace;
+        border: 1px solid rgba(31, 111, 178, 0.15);
+      }
+
+      .site-structure ul {
+        list-style: none;
+        padding-left: 20px;
+      }
+
+      .site-structure li:before {
+        content: "└ ";
+        color: var(--blue);
+        font-weight: 800;
+      }
+
+      .nav-demo {
+        background-color: var(--navy);
+        padding: 10px;
+        border-radius: 12px;
+        margin: 15px 0;
+      }
+
+      .nav-demo ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .nav-demo a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 14px;
+        display: block;
+        border-radius: 10px;
+      }
+
+      .nav-demo a:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+
+      .footer-section {
+        text-align: center;
+        background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+        color: white;
+      }
+
+      .footer-section h2 {
+        color: white;
+        border: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <h1>🔗 第3回授業：複数ページを作成してリンクでつなごう</h1>
+      <p>Webサイトらしく「メニュー」で行き来できるようにします</p>
+    </div>
+
+    <!-- 複数ページって何？ -->
+    <div class="section">
+      <h2>💡 複数ページって何？</h2>
+
+      <div class="info-box">
+        <strong>🌟 本物のWebサイトは複数のページでできています</strong><br />
+        トップページ、プロフィール、活動紹介など、ページを分けてリンクでつなぎます。
+      </div>
+
+      <h3>第1回・第2回の復習</h3>
+      <ul>
+        <li><strong>第1回：</strong> HTMLで自己紹介ページ（h1, p, ul, img, a）</li>
+        <li><strong>第2回：</strong> CSSでデザイン（色・サイズ・レイアウト）</li>
+        <li><strong>第3回（今日）：</strong> 複数ページを作ってリンクでつなぐ</li>
+      </ul>
+
+      <h3>今日作るサイトの構成（例）</h3>
+      <div class="site-structure">
+        <strong>私のWebサイト</strong>
+        <ul>
+          <li>トップページ（index）… サイトの入口・メニュー</li>
+          <li>プロフィール（profile）… 自己紹介</li>
+          <li>時間割（schedule）… 表（table）で見やすく整理</li>
+        </ul>
+      </div>
+
+      <div class="important-box">
+        <strong>📌 今日のポイント</strong><br />
+        「ページを分ける」＋「リンクでつなぐ」＝ ぐっとWebサイトらしくなります。
+      </div>
+    </div>
+
+    <!-- CodePenでの複数ページの作り方 -->
+    <div class="section">
+      <h2>📝 CodePenで複数ページを作る方法</h2>
+
+      <div class="important-box">
+        <strong>⚠️ CodePenの制限</strong><br />
+        CodePenは基本的に「1つのPen＝1つのページ」です。<br />
+        だから今日は <strong>3つのPen</strong> を作って、URLでつなぎます。
+      </div>
+
+      <h3>手順</h3>
+
+      <div class="step-item">
+        <h4><span class="step-number">1</span>1つ目のPen（トップページ）</h4>
+        <p>CodePenで「Create」→「Pen」</p>
+        <p><strong>タイトル例：</strong> 「私のサイト - トップ」</p>
+      </div>
+
+      <div class="step-item">
+        <h4><span class="step-number">2</span>保存してURLをメモ</h4>
+        <p>「Save」をクリック → URLをコピーしてメモ</p>
+        <div class="tips">
+          <strong>💡 ヒント：</strong> URL例： https://codepen.io/your-name/pen/abcdefg
+        </div>
+      </div>
+
+      <div class="step-item">
+        <h4><span class="step-number">3</span>2つ目のPen（プロフィール）</h4>
+        <p>新しいタブで「Create」→「Pen」→ 保存 → URLをメモ</p>
+      </div>
+
+      <div class="step-item">
+        <h4><span class="step-number">4</span>3つ目のPen（時間割 or 趣味）</h4>
+        <p>新しいタブで「Create」→「Pen」→ 保存 → URLをメモ</p>
+      </div>
+
+      <div class="tips">
+        <strong>💡 整理のコツ：</strong><br /><br />
+        トップ：https://codepen.io/...<br />
+        プロフィール：https://codepen.io/...<br />
+        時間割（or 趣味）：https://codepen.io/...
+      </div>
+    </div>
+
+    <!-- ページ間リンクの基本 -->
+    <div class="section">
+      <h2>🔗 ページ間リンクの基本</h2>
+
+      <h3>リンクの作り方</h3>
+      <div class="tag-card">
+        <div class="tag-name">基本の形</div>
+        <div class="code-example">&lt;a href="ページのURL"&gt;リンクテキスト&lt;/a&gt;</div>
+        <div class="tag-description">href の中に、飛び先のURLを入れます。</div>
+      </div>
+
+      <h3>実例（トップページにリンクを置く）</h3>
+      <div class="code-example">&lt;h1&gt;私のホームページへようこそ&lt;/h1&gt;
+
+&lt;p&gt;このサイトでは、私について紹介しています。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://codepen.io/.../プロフィールのURL"&gt;プロフィール&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://codepen.io/.../時間割のURL"&gt;時間割&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</div>
+
+      <div class="important-box">
+        <strong>⚠️ 注意</strong><br />
+        ・URLは <strong>https://</strong> から始まる形で正確にコピー<br />
+        ・リンクは必ずクリックしてテスト
+      </div>
+    </div>
+
+    <!-- navの説明（ここが「ちょうどいい場所」） -->
+    <div class="section">
+      <h2>🧠 &lt;nav&gt; タグって何？（今回の主役）</h2>
+
+      <div class="info-box">
+        <strong>結論：</strong> <code>&lt;nav&gt;</code> は「この部分はメニューです」と伝えるためのタグです。<br />
+        見た目を変えるタグではなく、<strong>意味（役割）を表すタグ</strong>です。
+      </div>
+
+      <h3>なぜ必要？（超重要）</h3>
+      <ul>
+        <li>
+          ブラウザや検索エンジン、読み上げ機能（アクセシビリティ）が
+          「ここはメニューだ」と理解しやすくなる
+        </li>
+        <li>
+          自分で見返したときも「ここがメニュー」と分かりやすい（保守性UP）
+        </li>
+      </ul>
+
+      <div class="important-box">
+        <strong>問い：</strong> <span style="font-size: 1.05em;">「nav を消したら何が不便？」</span><br />
+        例：ページが増えたとき、どこにメニューがあるか分かりにくい／読み上げが不便 など
+      </div>
+
+      <h3>&lt;div&gt; と何が違う？</h3>
+      <div class="tag-card">
+        <div class="tag-name">&lt;div&gt;</div>
+        <div class="tag-description">
+          「ただの箱」。意味は特にない（レイアウト目的で使うことが多い）。
+        </div>
+      </div>
+      <div class="tag-card">
+        <div class="tag-name">&lt;nav&gt;</div>
+        <div class="tag-description">
+          「ナビゲーション（メニュー）の箱」。意味がある＝読む人・機械に親切。
+        </div>
+      </div>
+    </div>
+
+    <!-- ナビゲーションメニューの作成 -->
+    <div class="section">
+      <h2>🧭 ナビゲーションメニューを作ろう</h2>
+
+      <div class="info-box">
+        <strong>🌟 ナビゲーションメニューとは？</strong><br />
+        どのページからでも他のページへ移動できる「共通メニュー」です。
+      </div>
+
+      <h3>基本のナビゲーション（HTML）</h3>
+      <div class="code-example">&lt;nav&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="トップページURL"&gt;ホーム&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="プロフィールURL"&gt;プロフィール&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="時間割（or 趣味）URL"&gt;時間割&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</div>
+
+      <h3>基本のナビゲーション（CSS）</h3>
+      <div class="code-example">nav {
+  background-color: #0b2d5c; /* ネイビー */
+  padding: 10px;
+  border-radius: 12px;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 14px;
+  display: block;
+  border-radius: 10px;
+}
+
+nav a:hover {
+  background-color: rgba(255,255,255,0.15);
+}</div>
+
+      <h3>表示イメージ</h3>
+      <div class="preview-box">
+        <div class="preview-label">ナビゲーションメニュー（例）</div>
+        <div class="nav-demo">
+          <ul>
+            <li><a href="#">ホーム</a></li>
+            <li><a href="#">プロフィール</a></li>
+            <li><a href="#">時間割</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tips">
+        <strong>💡 重要：</strong> このメニューを <strong>3ページ全部</strong> に貼り付けると、迷子になりません。
+      </div>
+    </div>
+
+    <!-- テーブルの基本 -->
+    <div class="section">
+      <h2>📊 テーブル（表）を作ろう</h2>
+
+      <div class="info-box">
+        <strong>🌟 テーブルとは？</strong><br />
+        データを見やすく整理して表示する表です。時間割、成績表などに使います。
+      </div>
+
+      <h3>例：月曜日の時間割</h3>
+
+      <h4>HTML</h4>
+      <div class="code-example">&lt;h2&gt;月曜日の時間割&lt;/h2&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;時間&lt;/th&gt;
+      &lt;th&gt;科目&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1時間目&lt;/td&gt;
+      &lt;td&gt;国語&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2時間目&lt;/td&gt;
+      &lt;td&gt;数学&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</div>
+
+      <div class="tips">
+        <strong>💡 コツ：</strong> 見出しは <code>&lt;th&gt;</code>、中身は <code>&lt;td&gt;</code>。
+      </div>
+    </div>
+
+    <!-- 課題 -->
+    <div class="task-box">
+      <h3>📝 今日の課題</h3>
+      <p><strong>3ページのWebサイトを作成しよう！</strong></p>
+
+      <h4>必須条件</h4>
+      <ul class="checklist">
+        <li>3つのページを作成（トップ／プロフィール／時間割 or 趣味）</li>
+        <li>全ページに共通のナビゲーションメニュー（&lt;nav&gt;）を置く</li>
+        <li>各ページ間をリンクでつなぐ</li>
+        <li>少なくとも1ページにテーブル（&lt;table&gt;）を使う</li>
+        <li>画像を入れる場合は <code>max-width: 100%;</code> をつける</li>
+      </ul>
+
+      <h4>提出するもの</h4>
+      <ul class="checklist">
+        <li>3つのCodePen URL（トップ／プロフィール／3ページ目）</li>
+        <li>振り返り（工夫、難しかった点、ページ構成の理由）</li>
+      </ul>
+    </div>
+
+    <!-- 発展課題 -->
+    <div class="section">
+      <h2>🚀 発展課題（早く終わった人向け）</h2>
+
+      <div class="info-box">
+        <strong>💡 ただ作るだけで終わらせない：</strong><br />
+        「意味のあるタグ」を使うと、Webサイトはもっと “伝わる” ものになります。
+      </div>
+
+      <h3>発展1：nav を消したら何が不便？（考えて書く）</h3>
+      <div class="tag-card">
+        <div class="tag-name">やること</div>
+        <div class="tag-description">
+          ① メニューを一度消してみる（コードをコメントアウトでもOK）<br />
+          ② 「何が困ったか」を 2つ以上 書く（自分／見る人／読み上げ など視点を変える）
+        </div>
+      </div>
+
+      <h3>発展2：&lt;nav&gt; を &lt;div&gt; に置き換えると何が変わる？</h3>
+      <div class="tag-card">
+        <div class="tag-name">やること</div>
+        <div class="tag-description">
+          下の2つを比べて、<strong>見た目は同じでも意味が変わる</strong>ことを確認しよう。
+        </div>
+        <div class="code-example">&lt;!-- A：nav（意味がある） --&gt;
+&lt;nav&gt;...メニュー...&lt;/nav&gt;
+
+&lt;!-- B：div（ただの箱） --&gt;
+&lt;div&gt;...メニュー...&lt;/div&gt;</div>
+        <div class="tips">
+          <strong>考えるポイント：</strong><br />
+          ・人がソースを読んだときの分かりやすさは？<br />
+          ・読み上げや検索（機械）にとっては？<br />
+          ・ページが増えた未来を想像すると？
+        </div>
+      </div>
+
+      <h3>発展3：外部リンクを別タブで開く</h3>
+      <div class="tag-card">
+        <div class="tag-name">target="_blank"</div>
+        <div class="tag-description">
+          外部サイトは別タブで開くと、戻って来やすいです。
+        </div>
+        <div class="code-example">&lt;a href="https://www.youtube.com" target="_blank"&gt;YouTube&lt;/a&gt;</div>
+      </div>
+    </div>
+
+    <div class="section footer-section">
+      <h2>✅ 今日のゴール</h2>
+      <p>
+        「ページを分ける」→「リンクでつなぐ」→「メニューで迷子にしない」<br />
+        この3つで、一気に “Webサイト” になります。
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第3回授業：複数ページを作成してリンクでつなごう</title>
+    <style>
+      :root {
+        --navy: #0b2d5c;
+        --navy-2: #123a73;
+        --blue: #1f6fb2;
+        --sky: #4aa3df;
+        --bg: #f3f7fb;
+        --card: #ffffff;
+        --text: #1b2430;
+        --muted: #5b6b7c;
+        --info-bg: #e8f2fb;
+        --info-border: #1f6fb2;
+        --tip-bg: #fff6da;
+        --tip-border: #f0b429;
+        --warn-bg: #fde8ea;
+        --warn-border: #d64550;
+        --task-bg: #e6f6f8;
+        --task-border: #0f7b8d;
+        --shadow: 0 2px 8px rgba(11, 45, 92, 0.12);
+      }
+
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: var(--bg);
+        line-height: 1.7;
+        color: var(--text);
+      }
+
+      .header {
+        background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 12px;
+        margin-bottom: 24px;
+        text-align: center;
+        box-shadow: var(--shadow);
+      }
+
+      .header h1 {
+        margin: 0 0 10px 0;
+        font-size: 2em;
+      }
+
+      .section {
+        background: var(--card);
+        padding: 25px;
+        margin-bottom: 18px;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+
+      .section h2 {
+        color: var(--navy);
+        border-bottom: 3px solid var(--blue);
+        padding-bottom: 10px;
+        margin-top: 0;
+      }
+
+      .tag-card {
+        background: #f5f9ff;
+        border-left: 5px solid var(--blue);
+        padding: 15px;
+        margin: 14px 0;
+        border-radius: 10px;
+      }
+
+      .tag-name {
+        font-size: 1.1em;
+        font-weight: 800;
+        color: var(--navy-2);
+        margin-bottom: 6px;
+      }
+
+      .tag-description {
+        color: var(--muted);
+        margin-bottom: 10px;
+      }
+
+      .code-example {
+        background: #142033;
+        color: #eaf2ff;
+        padding: 14px;
+        border-radius: 10px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
+        overflow-x: auto;
+        margin: 10px 0;
+        white-space: pre;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .preview-box {
+        background: white;
+        border: 2px solid var(--blue);
+        padding: 15px;
+        border-radius: 10px;
+        margin: 10px 0;
+      }
+
+      .preview-label {
+        background: var(--blue);
+        color: white;
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-size: 0.9em;
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+
+      .tips {
+        background: var(--tip-bg);
+        border-left: 5px solid var(--tip-border);
+        padding: 15px;
+        margin: 18px 0;
+        border-radius: 10px;
+      }
+
+      .tips strong {
+        color: #7a5200;
+      }
+
+      .important-box {
+        background: var(--warn-bg);
+        border-left: 5px solid var(--warn-border);
+        padding: 15px;
+        margin: 18px 0;
+        border-radius: 10px;
+      }
+
+      .important-box strong {
+        color: #7a1f27;
+      }
+
+      .task-box {
+        background: var(--task-bg);
+        border-left: 6px solid var(--task-border);
+        padding: 20px;
+        margin: 18px 0;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+
+      .task-box h3 {
+        margin-top: 0;
+        color: #0b4f5c;
+      }
+
+      ul.checklist {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      ul.checklist li:before {
+        content: "✓ ";
+        color: #1f8b4c;
+        font-weight: 900;
+        margin-right: 8px;
+      }
+
+      .step-number {
+        display: inline-block;
+        background: var(--blue);
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 30px;
+        font-weight: 800;
+        margin-right: 10px;
+      }
+
+      .step-item {
+        margin: 14px 0;
+        padding: 15px;
+        background: #f5f9ff;
+        border-radius: 12px;
+        border: 1px solid rgba(31, 111, 178, 0.15);
+      }
+
+      .info-box {
+        background: var(--info-bg);
+        border-left: 5px solid var(--info-border);
+        padding: 15px;
+        margin: 18px 0;
+        border-radius: 10px;
+      }
+
+      .info-box strong {
+        color: var(--navy);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #d8e3f0;
+        padding: 12px;
+        text-align: left;
+      }
+
+      table th {
+        background-color: var(--navy);
+        color: white;
+        font-weight: 800;
+      }
+
+      table tr:nth-child(even) {
+        background-color: #f5f9ff;
+      }
+
+      .site-structure {
+        background: #f5f9ff;
+        padding: 18px;
+        border-radius: 12px;
+        margin: 15px 0;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
+        border: 1px solid rgba(31, 111, 178, 0.15);
+      }
+
+      .site-structure ul {
+        list-style: none;
+        padding-left: 20px;
+      }
+
+      .site-structure li:before {
+        content: "└ ";
+        color: var(--blue);
+        font-weight: 800;
+      }
+
+      .nav-demo {
+        background-color: var(--navy);
+        padding: 10px;
+        border-radius: 12px;
+        margin: 15px 0;
+      }
+
+      .nav-demo ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .nav-demo a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 14px;
+        display: block;
+        border-radius: 10px;
+      }
+
+      .nav-demo a:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+
+      .footer-section {
+        text-align: center;
+        background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+        color: white;
+      }
+
+      .footer-section h2 {
+        color: white;
+        border: none;
+      }
+
+      .teacher-guide {
+        background: #fff3cd;
+        border-left: 5px solid #f0b429;
+        padding: 20px;
+        margin: 18px 0;
+        border-radius: 12px;
+      }
+
+      .teacher-guide h3 {
+        color: #7a5200;
+        margin-top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>🔗 第3回授業：複数ページを作成してリンクでつなごう</h1>
+      <p>本格的なWebサイトを作ろう！ナビゲーションメニューで行き来できるようにします</p>
+      <div style="margin-top: 15px; font-size: 0.9em; background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px;">
+        <strong>👨‍🏫 先生へ：</strong> 第1回・第2回で作成したページを発展させる授業です
+      </div>
+    </div>
+
+    <!-- 先生向けガイド -->
+    <div class="teacher-guide">
+      <h2>👨‍🏫 先生向け：授業の進め方ガイド</h2>
+
+      <h3>📋 事前準備</h3>
+      <ul class="checklist">
+        <li>第1回・第2回の生徒の提出物を確認</li>
+        <li>ご自身でCodePenのアカウントを作成（無料）</li>
+        <li>3つのPenを作って保存・リンクする練習（5分程度）</li>
+        <li>プロジェクター・スクリーンの動作確認</li>
+      </ul>
+
+      <h3>⏱️ 時間配分（50分）</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 15%;">時間</th>
+            <th style="width: 35%;">内容</th>
+            <th>指導のポイント</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0-5分</td>
+            <td>導入・複数ページの説明</td>
+            <td>完成例を見せてゴールを明確に</td>
+          </tr>
+          <tr>
+            <td>5-15分</td>
+            <td>新しいタグの説明（nav, table）</td>
+            <td>各タグの役割と書き方を実演</td>
+          </tr>
+          <tr>
+            <td>15-25分</td>
+            <td>ページ作成とリンク接続</td>
+            <td>生徒と一緒にコードを書く</td>
+          </tr>
+          <tr>
+            <td>25-40分</td>
+            <td>ナビゲーションとテーブル作成</td>
+            <td>巡回しながら個別サポート</td>
+          </tr>
+          <tr>
+            <td>40-50分</td>
+            <td>保存・提出・まとめ</td>
+            <td>提出方法の確認</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>💡 指導のコツ</h3>
+      <ul>
+        <li><strong>生徒と一緒にコードを書く：</strong> プロジェクターで自分の画面を映して、同じペースで進める</li>
+        <li><strong>URLのコピーを丁寧に：</strong> リンクエラーの原因の大半はURLコピーミス</li>
+        <li><strong>完璧を求めない：</strong> 2ページでもOK、エラーも学びの一部</li>
+      </ul>
+
+      <h3>🆘 よくある質問</h3>
+      <ul>
+        <li><strong>「リンクが動かない」</strong> → URLが https:// から始まっているか確認</li>
+        <li><strong>「前回のページが見つからない」</strong> → CodePenの「Your Work」から探す</li>
+        <li><strong>「ナビゲーションが横並びにならない」</strong> → CSSに display: flex; があるか確認</li>
+      </ul>
+    </div>
+
+    <!-- 複数ページって何？ -->
+    <div class="section">
+      <h2>💡 複数ページって何？</h2>
+      
+      <div class="info-box">
+        <strong>🌟 本物のWebサイトは複数のページで構成されています</strong><br>
+        YouTubeもGoogleも、トップページ、検索結果ページ、設定ページなど、たくさんのページがリンクでつながっています。
+      </div>
+
+      <h3>第1回・第2回の復習</h3>
+      <ul>
+        <li><strong>第1回：</strong> HTMLで自己紹介ページを作成（h1, p, ul, img, a タグ）</li>
+        <li><strong>第2回：</strong> CSSでデザインを追加（色、サイズ、レイアウト）</li>
+        <li><strong>第3回（今日）：</strong> 複数ページを作ってリンクでつなぐ + 新しいタグを学ぶ</li>
+      </ul>
+
+      <h3>今日作るサイトの構成</h3>
+      <div class="site-structure">
+        <strong>私のWebサイト</strong>
+        <ul>
+          <li>トップページ（index.html）
+            <ul>
+              <li>サイト全体の紹介、ナビゲーションメニュー</li>
+            </ul>
+          </li>
+          <li>プロフィールページ（profile.html）
+            <ul>
+              <li>第1回で作った自己紹介ページを使用</li>
+            </ul>
+          </li>
+          <li>時間割ページ（schedule.html）
+            <ul>
+              <li>テーブルを使って時間割を表示</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="important-box">
+        <strong>📌 今日のポイント</strong><br>
+        第1回で作った自己紹介ページは再利用できます！新しく作るのは「トップページ」と「時間割ページ」の2つだけ。
+      </div>
+    </div>
+
+    <!-- 今日学ぶ新しいタグ -->
+    <div class="section">
+      <h2>📚 今日学ぶ新しいタグ</h2>
+
+      <h3>&lt;nav&gt; - ナビゲーションタグ</h3>
+      <div class="tag-card">
+        <div class="tag-name">&lt;nav&gt;&lt;/nav&gt;</div>
+        <div class="tag-description">
+          <strong>役割：</strong> 「ここはナビゲーション（メニュー）です」と示すタグ<br>
+          <strong>なぜ必要？：</strong> ブラウザや検索エンジン、読み上げ機能が「これはメニューだ」と理解しやすくなる
+        </div>
+        
+        <h4>基本の書き方：</h4>
+        <div class="code-example">&lt;nav&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="ページ1のURL"&gt;ページ1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="ページ2のURL"&gt;ページ2&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</div>
+
+        <h4>&lt;nav&gt; と &lt;div&gt; の違い：</h4>
+        <ul>
+          <li><strong>&lt;div&gt;：</strong> ただの箱。意味は特にない</li>
+          <li><strong>&lt;nav&gt;：</strong> 「メニューの箱」。意味がある＝読む人・機械に親切</li>
+        </ul>
+      </div>
+
+      <h3>&lt;table&gt; - テーブル（表）タグ</h3>
+      <div class="tag-card">
+        <div class="tag-name">&lt;table&gt;&lt;/table&gt;</div>
+        <div class="tag-description">
+          <strong>役割：</strong> データを行と列で整理して表示する<br>
+          <strong>使い道：</strong> 時間割、成績表、価格表など
+        </div>
+
+        <h4>テーブルを構成するタグ：</h4>
+        <table style="margin-top: 10px;">
+          <thead>
+            <tr>
+              <th>タグ</th>
+              <th>意味</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>&lt;table&gt;</td>
+              <td>表全体を囲む</td>
+            </tr>
+            <tr>
+              <td>&lt;thead&gt;</td>
+              <td>表の見出し部分</td>
+            </tr>
+            <tr>
+              <td>&lt;tbody&gt;</td>
+              <td>表のデータ部分</td>
+            </tr>
+            <tr>
+              <td>&lt;tr&gt;</td>
+              <td>表の行（横）</td>
+            </tr>
+            <tr>
+              <td>&lt;th&gt;</td>
+              <td>見出しセル（太字）</td>
+            </tr>
+            <tr>
+              <td>&lt;td&gt;</td>
+              <td>データセル（普通の文字）</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>基本の書き方：</h4>
+        <div class="code-example">&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;見出し1&lt;/th&gt;
+      &lt;th&gt;見出し2&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;データ1&lt;/td&gt;
+      &lt;td&gt;データ2&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</div>
+      </div>
+    </div>
+
+    <!-- 実践例1：ナビゲーションメニュー -->
+    <div class="section">
+      <h2>🧭 実践例1：ナビゲーションメニューを作ろう</h2>
+
+      <h3>ステップ1：HTMLを書く</h3>
+      <div class="code-example">&lt;nav&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="トップページのURL"&gt;ホーム&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="プロフィールページのURL"&gt;プロフィール&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="時間割ページのURL"&gt;時間割&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</div>
+
+      <div class="tips">
+        <strong>💡 説明：</strong><br>
+        • &lt;nav&gt; で全体を囲む（これがメニューだと示す）<br>
+        • &lt;ul&gt; &lt;li&gt; でリストを作る（第1回で学習済み）<br>
+        • &lt;a href="URL"&gt; でリンクを作る（第1回で学習済み）
+      </div>
+
+      <h3>ステップ2：CSSでデザインする</h3>
+      <div class="code-example">nav {
+  background-color: #0b2d5c;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 12px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 14px;
+  display: block;
+  border-radius: 10px;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}</div>
+
+      <div class="tips">
+        <strong>💡 説明：</strong><br>
+        • nav の背景色を濃紺に<br>
+        • display: flex で横並びに<br>
+        • hover で マウスを乗せたときの色変化
+      </div>
+
+      <h3>表示結果：</h3>
+      <div class="preview-box">
+        <div class="preview-label">ナビゲーションメニュー</div>
+        <div class="nav-demo">
+          <ul>
+            <li><a href="#">ホーム</a></li>
+            <li><a href="#">プロフィール</a></li>
+            <li><a href="#">時間割</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="important-box">
+        <strong>⚠️ 重要：</strong> このナビゲーションメニューを3ページ全てにコピー＆ペーストしましょう！
+      </div>
+    </div>
+
+    <!-- 実践例2：時間割のテーブル -->
+    <div class="section">
+      <h2>📊 実践例2：時間割のテーブルを作ろう</h2>
+
+      <h3>例1：月曜日の時間割（シンプル版）</h3>
+
+      <h4>ステップ1：HTMLを書く</h4>
+      <div class="code-example">&lt;h2&gt;月曜日の時間割&lt;/h2&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;時間&lt;/th&gt;
+      &lt;th&gt;科目&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1時間目&lt;/td&gt;
+      &lt;td&gt;国語&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2時間目&lt;/td&gt;
+      &lt;td&gt;数学&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;3時間目&lt;/td&gt;
+      &lt;td&gt;英語&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4時間目&lt;/td&gt;
+      &lt;td&gt;理科&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</div>
+
+      <div class="tips">
+        <strong>💡 説明：</strong><br>
+        • &lt;thead&gt; に見出し行（「時間」「科目」）<br>
+        • &lt;tbody&gt; にデータ行（各時間の科目）<br>
+        • &lt;tr&gt; が1行、&lt;th&gt; or &lt;td&gt; が1つのマス
+      </div>
+
+      <h4>ステップ2：CSSでデザインする</h4>
+      <div class="code-example">table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #d8e3f0;
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background-color: #0b2d5c;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f5f9ff;
+}</div>
+
+      <div class="tips">
+        <strong>💡 説明：</strong><br>
+        • border で枠線を付ける<br>
+        • th の背景色を濃紺に<br>
+        • 偶数行の背景色を薄い青に（見やすくする）
+      </div>
+
+      <h4>表示結果：</h4>
+      <div class="preview-box">
+        <div class="preview-label">月曜日の時間割</div>
+        <table>
+          <thead>
+            <tr>
+              <th style="text-align: center;">時間</th>
+              <th style="text-align: center;">科目</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: center;">1時間目</td>
+              <td style="text-align: center;">国語</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;">2時間目</td>
+              <td style="text-align: center;">数学</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;">3時間目</td>
+              <td style="text-align: center;">英語</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;">4時間目</td>
+              <td style="text-align: center;">理科</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>例2：1週間の時間割（発展版）</h3>
+
+      <h4>HTML：</h4>
+      <div class="code-example">&lt;h2&gt;1週間の時間割&lt;/h2&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;時間&lt;/th&gt;
+      &lt;th&gt;月&lt;/th&gt;
+      &lt;th&gt;火&lt;/th&gt;
+      &lt;th&gt;水&lt;/th&gt;
+      &lt;th&gt;木&lt;/th&gt;
+      &lt;th&gt;金&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;国語&lt;/td&gt;
+      &lt;td&gt;数学&lt;/td&gt;
+      &lt;td&gt;英語&lt;/td&gt;
+      &lt;td&gt;理科&lt;/td&gt;
+      &lt;td&gt;社会&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;数学&lt;/td&gt;
+      &lt;td&gt;英語&lt;/td&gt;
+      &lt;td&gt;理科&lt;/td&gt;
+      &lt;td&gt;社会&lt;/td&gt;
+      &lt;td&gt;国語&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</div>
+
+      <div class="tips">
+        <strong>💡 ポイント：</strong> 列を増やすだけで、1週間の時間割が作れます！
+      </div>
+    </div>
+
+    <!-- CodePenでの複数ページの作り方 -->
+    <div class="section">
+      <h2>📝 CodePenで複数ページを作る方法</h2>
+
+      <div class="important-box">
+        <strong>⚠️ CodePenの制限</strong><br>
+        CodePenは1つのPenに1つのHTMLしか書けません。そのため、今日は3つの別々のPenを作って、URLでリンクします。
+      </div>
+
+      <h3>手順</h3>
+
+      <div class="step-item">
+        <h4><span class="step-number">1</span>1つ目のPen（トップページ）を作る</h4>
+        <p>CodePenで「Create」→「Pen」をクリック</p>
+        <p><strong>タイトル：</strong> 「私のサイト - トップページ」</p>
+      </div>
+
+      <div class="step-item">
+        <h4><span class="step-number">2</span>保存してURLを記録</h4

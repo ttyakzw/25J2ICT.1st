@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第4回授業：tableとdivで情報を整理しよう</title>
+    <style>
+      :root {
+        --navy: #0b2d5c;
+        --navy-2: #123a73;
+        --blue: #1f6fb2;
+        --sky: #4aa3df;
+        --bg: #f3f7fb;
+        --card: #ffffff;
+        --text: #1b2430;
+        --muted: #5b6b7c;
+        --info-bg: #e8f2fb;
+        --info-border: #1f6fb2;
+        --tip-bg: #fff6da;
+        --tip-border: #f0b429;
+        --warn-bg: #fde8ea;
+        --warn-border: #d64550;
+        --task-bg: #e6f6f8;
+        --task-border: #0f7b8d;
+        --shadow: 0 2px 8px rgba(11, 45, 92, 0.12);
+      }
+
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: var(--bg);
+        line-height: 1.7;
+        color: var(--text);
+      }
+
+      .header {
+        background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 12px;
+        margin-bottom: 24px;
+        text-align: center;
+        box-shadow: var(--shadow);
+      }
+
+      .header h1 {
+        margin: 0 0 10px 0;
+        font-size: 2em;
+      }
+
+      .section {
+        background: var(--card);
+        padding: 25px;
+        margin-bottom: 18px;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+
+      .section h2 {
+        color: var(--navy);
+        border-bottom: 3px solid var(--blue);
+        padding-bottom: 10px;
+        margin-top: 0;
+      }
+
+      .tag-card {
+        background: #f5f9ff;
+        border-left: 5px solid var(--blue);
+        padding: 15px;
+        margin: 14px 0;
+        border-radius: 10px;
+      }
+
+      .tag-name {
+        font-size: 1.1em;
+        font-weight: 800;
+        color: var(--navy-2);
+        margin-bottom: 6px;
+      }
+
+      .tag-description {
+        color: var(--muted);
+        margin-bottom: 10px;
+      }
+
+      .code-example {
+        background: #142033;
+        color: #eaf2ff;
+        padding: 14px;
+        border-radius: 10px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
+        overflow-x: auto;
+        margin: 10px 0;
+        white-space: pre;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .preview-box {
+        background: white;
+        border: 2px solid var(--blue);
+        padding: 15px;
+        border-radius: 10px;
+        margin: 10px 0;
+      }
+
+      .preview-label {
+        background: var(--blue);
+        color: white;
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-size: 0.9em;
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+
+      .tips {
+        background: var(--tip-bg);
+        border-left: 5px solid var(--tip-border);
+        padding: 15px;
+        margin: 18px 0;
+        border-radius: 10px;
+      }
+
+      .tips strong {
+        color: #7a5200;
+      }
+
+      .important-box {
+        background: var(--warn-bg);
+        border-left: 5px solid var(--warn-border);
+        padding: 15px;
+        margin: 18px 0;
+        border-radius: 10px;
+      }
+
+      .important-box strong {
+        color: #7a1f27;
+      }
+
+      .task-box {
+        background: var(--task-bg);
+        border-left: 6px solid var(--task-border);
+        padding: 20px;
+        margin: 18px 0;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+
+      .task-box h3 {
+        margin-top: 0;
+        color: #0b4f5c;
+      }
+
+      ul.checklist {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      ul.checklist li:before {
+        content: "✓ ";
+        color: #1f8b4c;
+        font-weight: 900;
+        margin-right: 8px;
+      }
+
+      .step-number {
+        display: inline-block;
+        background: var(--blue);
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 30px;
+        font-weight: 800;
+        margin-right: 10px;
+      }
+
+      .step-item {
+        margin: 14px 0;
+        padding: 15px;
+        background: #f5f9ff;
+        border-radius: 12px;
+        border: 1px solid rgba(31, 111, 178, 0.15);
+      }
+
+      .info-box {
+        background: var(--info-bg);
+        border-left: 5px solid var(--info-border);
+        padding: 15px;
+        margin: 18px 0;
+        border-radius: 10px;
+      }
+
+      .info-box strong {
+        color: var(--navy);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #d8e3f0;
+        padding: 12px;
+        text-align: left;
+      }
+
+      table th {
+        background-color: var(--navy);
+        color: white;
+        font-weight: 800;
+      }
+
+      table tr:nth-child(even) {
+        background-color: #f5f9ff;
+      }
+
+      .teacher-guide {
+        background: #fff3cd;
+        border-left: 5px solid #f0b429;
+        padding: 20px;
+        margin: 18px 0;
+        border-radius: 12px;
+      }
+
+      .teacher-guide h3 {
+        color: #7a5200;
+        margin-top: 0;
+      }
+
+      .div-demo {
+        border: 2px dashed var(--blue);
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 10px;
+      }
+
+      .div-demo-inner {
+        background: #f5f9ff;
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 5px;
+      }
+
+      .footer-section {
+        text-align: center;
+        background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+        color: white;
+      }
+
+      .footer-section h2 {
+        color: white;
+        border: none;
+      }
+
+      .eval-table {
+        background: #f5f9ff;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 15px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>📦 第4回授業：tableとdivで情報を整理しよう</h1>
+      <p>データを見やすく表示する方法と、ページをブロックで整理する方法を学びます</p>
+      <div style="margin-top: 15px; font-size: 0.9em; background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px;">
+        <strong>👨‍🏫 先生へ：</strong> 第3回で学んだtableをより深く理解し、divでレイアウトを整理する授業です
+      </div>
+    </div>
+
+    <!-- 授業の目標と流れ -->
+    <div class="teacher-guide">
+      <h2>📋 今日の授業の目標と流れ</h2>
+
+      <h3>🎯 今日の目標</h3>
+      <ul class="checklist">
+        <li>tableタグで複雑なデータを整理できる</li>
+        <li>divタグでページをブロック分けできる</li>
+        <li>tableとdivの使い分けを理解する</li>
+        <li>これまでの学習の集大成として成果物を提出できる</li>
+      </ul>
+
+      <h3>⏱️ 授業の流れ（50分）</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 15%;">時間</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0-5分</td>
+            <td>導入・前回の復習</td>
+          </tr>
+          <tr>
+            <td>5-20分</td>
+            <td>tableの詳しい説明と実例（colspan, rowspan）</td>
+          </tr>
+          <tr>
+            <td>20-30分</td>
+            <td>divタグの説明と実例（レイアウトの整理）</td>
+          </tr>
+          <tr>
+            <td>30-45分</td>
+            <td>課題制作（総合プロフィールページ作成）</td>
+          </tr>
+          <tr>
+            <td>45-50分</td>
+            <td>保存・提出・評価の説明</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>📊 評価について</h3>
+      <div class="eval-table">
+        <h4>評価の観点</h4>
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 30%;">観点</th>
+              <th>評価項目</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>知識・技能</td>
+              <td>tableタグを正しく使えている（thead, tbody, tr, th, td）<br>divタグでセクションを整理できている</td>
+            </tr>
+            <tr>
+              <td>思考・判断・表現</td>
+              <td>情報を分かりやすく整理している<br>CSSでデザインを工夫している</td>
+            </tr>
+            <tr>
+              <td>主体的な学習態度</td>
+              <td>振り返りシートに具体的に記述している<br>レスポンシブ対応（max-width等）ができている</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>❓ よくある質問</h3>
+      <ul>
+        <li><strong>「tableとdivはどう使い分ける？」</strong> → table=データ（時間割、成績表）、div=レイアウト（ヘッダー、メインコンテンツ）</li>
+        <li><strong>「セルを結合したい」</strong> → colspan（横結合）、rowspan（縦結合）を使う</li>
+        <li><strong>「divの中にdivを入れていい？」</strong> → OK！入れ子構造で細かく整理できる</li>
+      </ul>
+    </div>
+
+    <!-- 前回の復習 -->
+    <div class="section">
+      <h2>📚 前回の復習</h2>
+      
+      <h3>第1回〜第3回で学んだこと</h3>
+      <ul>
+        <li><strong>第1回：</strong> HTML基本タグ（h1, p, ul, img, a）</li>
+        <li><strong>第2回：</strong> CSS（色、サイズ、レイアウト）</li>
+        <li><strong>第3回：</strong> 複数ページ、nav、table基礎</li>
+      </ul>
+
+      <h3>tableの基本（おさらい）</h3>
+      <div class="code-example">&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;見出し1&lt;/th&gt;
+      &lt;th&gt;見出し2&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;データ1&lt;/td&gt;
+      &lt;td&gt;データ2&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</div>
+    </div>
+
+    <!-- tableタグの詳細 -->
+    <div class="section">
+      <h2>📊 tableタグの詳細説明</h2>
+
+      <h3>tableを構成するタグ一覧</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>タグ</th>
+            <th>役割</th>
+            <th>必須？</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>&lt;table&gt;</td>
+            <td>表全体を囲む</td>
+            <td>✅ 必須</td>
+          </tr>
+          <tr>
+            <td>&lt;thead&gt;</td>
+            <td>表の見出し部分</td>
+            <td>⭐ 推奨</td>
+          </tr>
+          <tr>
+            <td>&lt;tbody&gt;</td>
+            <td>表のデータ部分</td>
+            <td>⭐ 推奨</td>
+          </tr>
+          <tr>
+            <td>&lt;tr&gt;</td>
+            <td>表の行（横の列）</td>
+            <td>✅ 必須</td>
+          </tr>
+          <tr>
+            <td>&lt;th&gt;</td>
+            <td>見出しセル（太字・中央揃え）</td>
+            <td>⭐ 推奨</td>
+          </tr>
+          <tr>
+            <td>&lt;td&gt;</td>
+            <td>データセル（普通の文字）</td>
+            <td>✅ 必須</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="tips">
+        <strong>💡 ポイント：</strong><br>
+        thead と tbody は省略できますが、使った方が構造が分かりやすくなります！
+      </div>
+
+      <h3>発展：セルの結合</h3>
+
+      <h4>colspan - 横方向にセルを結合</h4>
+      <div class="tag-card">
+        <div class="tag-name">colspan="数字"</div>
+        <div class="tag-description">
+          横に複数のセルを結合します。colspan="2" なら横2マス分を結合。
+        </div>
+
+        <h4>サンプルコード：</h4>
+        <div class="code-example">&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th colspan="2"&gt;2マス分の見出し&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;データ1&lt;/td&gt;
+    &lt;td&gt;データ2&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</div>
+
+        <h4>出力例：</h4>
+        <div class="preview-box">
+          <div class="preview-label">colspan の例</div>
+          <table>
+            <tr>
+              <th colspan="2" style="text-align: center;">2マス分の見出し</th>
+            </tr>
+            <tr>
+              <td>データ1</td>
+              <td>データ2</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <h4>rowspan - 縦方向にセルを結合</h4>
+      <div class="tag-card">
+        <div class="tag-name">rowspan="数字"</div>
+        <div class="tag-description">
+          縦に複数のセルを結合します。rowspan="2" なら縦2マス分を結合。
+        </div>
+
+        <h4>サンプルコード：</h4>
+        <div class="code-example">&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th rowspan="2"&gt;2行分の見出し&lt;/th&gt;
+    &lt;td&gt;データ1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;データ2&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</div>
+
+        <h4>出力例：</h4>
+        <div class="preview-box">
+          <div class="preview-label">rowspan の例</div>
+          <table>
+            <tr>
+              <th rowspan="2" style="vertical-align: middle;">2行分の見出し</th>
+              <td>データ1</td>
+            </tr>
+            <tr>
+              <td>データ2</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <h3>実践例：時間割表（完成版）</h3>
+
+      <h4>サンプルコード：</h4>
+      <div class="code-example">&lt;h2&gt;私の時間割&lt;/h2&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;時間&lt;/th&gt;
+      &lt;th&gt;月&lt;/th&gt;
+      &lt;th&gt;火&lt;/th&gt;
+      &lt;th&gt;水&lt;/th&gt;
+      &lt;th&gt;木&lt;/th&gt;
+      &lt;th&gt;金&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;国語&lt;/td&gt;
+      &lt;td&gt;数学&lt;/td&gt;
+      &lt;td&gt;英語&lt;/td&gt;
+      &lt;td&gt;理科&lt;/td&gt;
+      &lt;td&gt;社会&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;数学&lt;/td&gt;
+      &lt;td&gt;英語&lt;/td&gt;
+      &lt;td&gt;理科&lt;/td&gt;
+      &lt;td&gt;社会&lt;/td&gt;
+      &lt;td&gt;国語&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;英語&lt;/td&gt;
+      &lt;td&gt;理科&lt;/td&gt;
+      &lt;td&gt;体育&lt;/td&gt;
+      &lt;td&gt;音楽&lt;/td&gt;
+      &lt;td&gt;美術&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;体育&lt;/td&gt;
+      &lt;td&gt;社会&lt;/td&gt;
+      &lt;td&gt;国語&lt;/td&gt;
+      &lt;td&gt;数学&lt;/td&gt;
+      &lt;td&gt;技術&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</div>
+
+      <h4>CSS（デザイン）：</h4>
+      <div class="code-example">table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #d8e3f0;
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background-color: #0b2d5c;
+  color: white;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f5f9ff;
+}</div>
+
+      <h4>出力例：</h4>
+      <div class="preview-box">
+        <div class="preview-label">時間割表</div>
+        <h3 style="margin-top: 0;">私の時間割</h3>
+        <table>
+          <thead>
+            <tr>
+              <th style="text-align: center;">時間</th>
+              <th style="text-align: center;">月</th>
+              <th style="text-align: center;">火</th>
+              <th style="text-align: center;">水</th>
+              <th style="text-align: center;">木</th>
+              <th style="text-align: center;">金</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: center; font-weight: bold;">1</td>
+              <td style="text-align: center;">国語</td>
+              <td style="text-align: center;">数学</td>
+              <td style="text-align: center;">英語</td>
+              <td style="text-align: center;">理科</td>
+              <td style="text-align: center;">社会</td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-weight: bold;">2</td>
+              <td style="text-align: center;">数学</td>
+              <td style="text-align: center;">英語</td>
+              <td style="text-align: center;">理科</td>
+              <td style="text-align: center;">社会</td>
+              <td style="text-align: center;">国語</td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-weight: bold;">3</td>
+              <td style="text-align: center;">英語</td>
+              <td style="text-align: center;">理科</td>
+              <td style="text-align: center;">体育</td>
+              <td style="text-align: center;">音楽</td>
+              <td style="text-align: center;">美術</td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-weight: bold;">4</td>
+              <td style="text-align: center;">体育</td>
+              <td style="text-align: center;">社会</td>
+              <td style="text-align: center;">国語</td>
+              <td style="text-align: center;">数学</td>
+              <td style="text-align: center;">技術</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- divタグの説明 -->
+    <div class="section">
+      <h2>📦 divタグの詳細説明</h2>
+
+      <h3>divタグとは？</h3>
+      <div class="tag-card">
+        <div class="tag-name">&lt;div&gt;&lt;/div&gt;</div>
+        <div class="tag-description">
+          <strong>役割：</strong> コンテンツをグループ化する「箱」<br>
+          <strong>用途：</strong> ページをセクションに分けて整理する<br>
+          <strong>特徴：</strong> それ自体には意味はないが、レイアウトを整理するのに必須
+        </div>
+      </div>
+
+      <h3>tableとdivの使い分け</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>タグ</th>
+            <th>用途</th>
+            <th>具体例</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>&lt;table&gt;</td>
+            <td>データを行と列で整理</td>
+            <td>時間割、成績表、価格表、カレンダー</td>
+          </tr>
+          <tr>
+            <td>&lt;div&gt;</td>
+            <td>ページをブロックで整理</td>
+            <td>ヘッダー、メインコンテンツ、サイドバー、フッター</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="important-box">
+        <strong>⚠️ 重要：</strong> tableはレイアウトに使わない！データの表示専用です。レイアウトはdivとCSSで行います。
+      </div>
+
+      <h3>divの基本的な使い方</h3>
+
+      <h4>サンプルコード：</h4>
+      <div class="code-example">&lt;div class="header"&gt;
+  &lt;h1&gt;私のプロフィール&lt;/h1&gt;
+&lt;/div&gt;
+
+&lt;div class="main-content"&gt;
+  &lt;h2&gt;自己紹介&lt;/h2&gt;
+  &lt;p&gt;中学2年生です。&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="footer"&gt;
+  &lt;p&gt;© 2024 私のサイト&lt;/p&gt;
+&lt;/div&gt;</div>
+
+      <h4>CSS（デザイン）：</h4>
+      <div class="code-example">.header {
+  background-color: #0b2d5c;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.main-content {
+  padding: 20px;
+  background-color: white;
+  margin: 20px 0;
+}
+
+.footer {
+  background-color: #f3f7fb;
+  padding: 15px;
+  text-align: center;
+  font-size: 0.9em;
+}</div>
+
+      <h4>出力例：</h4>
+      <div class="preview-box">
+        <div class="preview-label">divでセクション分け</div>
+        <div style="background-color: #0b2d5c; color: white; padding: 20px; text-align: center; border-radius: 10px;">
+          <h1 style="margin: 0; color: white;">私のプロフィール</h1>
+        </div>
+        <div style="padding: 20px; background-color: white; margin: 20px 0; border: 1px solid #d8e3f0; border-radius: 10px;">
+          <h2 style="margin-top: 0;">自己紹介</h2>
+          <p>中学2年生です。</p>
+        </div>
+        <div style="background-color: #f3f7fb; padding: 15px; text-align: center; font-size: 0.9em; border-radius: 10px;">
+          <p style="margin: 0;">© 2024 私のサイト</p>
+        </div>
+      </div>
+
+      <div class="tips">
+        <strong>💡 ポイント：</strong><br>
+        • div に class を付けると、CSSで個別にデザインできる<br>
+        • class名は自由に付けられる（header, main-content, footer など分かりやすい名前を）
+      </div>
+
+      <h3>divの入れ子構造</h3>
+
+      <div class="tag-card">
+        <div class="tag-name">divの中にdivを入れる</div>
+        <div class="tag-description">
+          大きなブロックの中に、小さなブロックを入れて細かく整理できます。
+        </div>
+
+        <h4>サンプルコード：</h4>
+        <div class="code-example">&lt;div class="profile-section"&gt;
+  &lt;h2&gt;プロフィール&lt;/h2&gt;
+  
+  &lt;div class="basic-info"&gt;
+    &lt;h3&gt;基本情報&lt;/h3&gt;
+    &lt;p&gt;名前：山田太郎&lt;/p&gt;
+    &lt;p&gt;学年：中学2年生&lt;/p&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="hobbies"&gt;
+    &lt;h3&gt;趣味&lt;/h3&gt;
+    &lt;ul&gt;
+      &lt;li&gt;音楽&lt;/li&gt;
+      &lt;li&gt;ゲーム&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+
+        <h4>出力例（イメージ）：</h4>
+        <div class="preview-box">
+          <div class="preview-label">入れ子構造の例</div>
+          <div class="div-demo">
+            <h2 style="margin-top: 0;">プロフィール（外側のdiv）</h2>
+            <div class="div-demo-inner">
+              <h3 style="margin-top: 0;">基本情報（内側のdiv 1）</h3>
+              <p style="margin: 5px 0;">名前：山田太郎</p>
+              <p style="margin: 5px 0;">学年：中学2年生</p>
+            </div>
+            <div class="div-demo-inner">
+              <h3 style="margin-top: 0;">趣味（内側のdiv 2）</h3>
+              <ul style="margin: 5px 0;">
+                <li>音楽</li>
+                <li>ゲーム</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 課題 -->
+    <div class="task-box">
+      <h3>📝 今日の課題：総合プロフィールページを作成</h3>
+      <p><strong>これまでの学習の集大成として、自分の総合プロフィールページを作成します</strong></p>
+      
+      <h4>必須条件：</h4>
+      <ul class="checklist">
+        <li>tableを1つ以上使う（例：時間割、好きな科目ランキング、月間予定など）</li>
+        <li>divで最低3つのセクションに分ける（例：ヘッダー、メインコンテンツ、フッター）</li>
+        <li>各divにclassを付けてCSSでデザインする</li>
+        <li>第1回〜第3回で学んだタグを活用（h1, h2, p, ul, img, nav など）</li>
+        <li>レスポンシブ対応（画像に max-width: 100%;）</li>
+      </ul>
+
+      <h4>内容例：</h4>
+      <ul>
+        <li><strong>ヘッダー部分（div）：</strong> サイトタイトル、ナビゲーション</li>
+        <li><strong>プロフィール部分（div）：</strong> 自己紹介、写真、好きなこと</li>
+        <li><strong>時間割部分（table）：</strong> 1週間の時間割または月曜日の詳細</li>
+        <li><strong>趣味部分（div）：</strong> 好きなこと、画像、リスト</li>
+        <li><strong>フッター部分（div）：</strong> 連絡先、著作権表示</li>
+      </ul>
+
+      <h4>提出するもの：</h4>
+      <ul class="checklist">
+        <li>CodePenのURL</li>
+        <li>振り返りシート（下記参照）</li>
+      </ul>
+
+      <h4>振り返りシートの内容：</h4>
+      <ol>
+        <li>使用したHTMLタグのリスト（最低10個）</li>
+        <li>使用したCSSプロパティのリスト（最低10個）</li>
+        <li>tableを何に使ったか、なぜtableが適切だと思ったか</li>
+        <li>divをどのように使って構造を整理したか</li>
+        <li>工夫した点（デザイン、レイアウト、色使いなど）</li>
+        <li>難しかった点と、どう解決したか</li>
+        <li>AIを使った場合、どんなプロンプトを使ったか</li>
+        <li>4回の授業を通して学んだこと・感想</li>
+      </ol>
+
+      <div class="important-box">
+        <strong>📌 評価ポイント</strong><br>
+        • tableとdivを適切に使い分けている<br>
+        • 情報が整理されていて見やすい<br>
+        • CSSでデザインを工夫している<br>
+        • レスポンシブ対応ができている<br>
+        • 振り返りが具体的で詳しい
+      </div>
+    </div>
+
+    <!-- 発展課題 -->
+    <div class="section">
+      <h2>🚀 発展課題（早く終わった人向け）</h2>
+      
+      <h3>発展1：Flexboxでカード型レイアウト</h3>
+      <div class="tag-card">
+        <div class="tag-name">divを横並びにする</div>
+        
+        <h4>サンプルコード：</h4>
+        <div class="code-example">&lt;div class="card-container"&gt;
+  &lt;div class="card"&gt;
+    &lt;h3&gt;趣味1&lt;/h3&gt;
+    &lt;p&gt;音楽&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="card"&gt;
+    &lt;h3&gt;趣味2&lt;/h3&gt;
+    &lt;p&gt;ゲーム&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="card"&gt;
+    &lt;h3&gt;趣味3&lt;/h3&gt;
+    &lt;p&gt;読書&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+
+        <h4>CSS：</h4>
+        <div class="code-example">.card-container {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex: 1;
+  min-width: 200px;
+  background: #f5f9ff;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #d8e3f0;
+}</div>
+      </div>
+
+      <h3>発展2：スティッキーヘッダー（固定ヘッダー）</h3>
+      <div class="tag-card">
+        <div class="tag-name">スクロールしてもヘッダーが上に固定</div>
+        
+        <h4>CSS：</h4>
+        <div class="code-example">.header {
+  position: sticky;
+  top: 0;
+  background-color: #0b2d5c;
+  z-index: 100;
+}</div>
+      </div>
+
+      <h3>発展3：colspanとrowspanを組み合わせた複雑な表</h3>
+      <div class="tag-card">
+        <div class="tag-name">時間割に昼休みを追加</div>
+        
+        <h4>サンプルコード：</h4>
+        <div class="code-example">&lt;tr&gt;
+  &lt;td&gt;昼&lt;/td&gt;
+  &lt;td colspan="5" style="text-align: center;"&gt;昼休み&lt;/td&gt;
+&lt;/tr&gt;</div>
+      </div>
+
+      <h3>発展4：お問い合わせフォームを作ろう</h3>
+      <div class="tag-card">
+        <div class="tag-name">&lt;form&gt; - フォームタグ</div>
+        <div class="tag-description">
+          <strong>役割：</strong> ユーザーから情報を入力してもらうための要素<br>
+          <strong>用途：</strong> お問い合わせ、アンケート、会員登録など
+        </div>
+
+        <h4>フォームを構成するタグ：</h4>
+        <table style="margin: 10px 0;">
+          <thead>
+            <tr>
+              <th>タグ</th>
+              <th>役割</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>&lt;form&gt;</td>
+              <td>フォーム全体を囲む</td>
+            </tr>
+            <tr>
+              <td>&lt;input&gt;</td>
+              <td>1行のテキスト入力欄</td>
+            </tr>
+            <tr>
+              <td>&lt;textarea&gt;</td>
+              <td>複数行のテキスト入力欄</td>
+            </tr>
+            <tr>
+              <td>&lt;button&gt;</td>
+              <td>ボタン</td>
+            </tr>
+            <tr>
+              <td>&lt;label&gt;</td>
+              <td>入力欄のラベル</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>サンプルコード：</h4>
+        <div class="code-example">&lt;h2&gt;お問い合わせ&lt;/h2&gt;
+&lt;form&gt;
+  &lt;div class="form-group"&gt;
+    &lt;label&gt;お名前：&lt;/label&gt;
+    &lt;input type="text" placeholder="山田太郎"&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="form-group"&gt;
+    &lt;label&gt;メールアドレス：&lt;/label&gt;
+    &lt;input type="email" placeholder="example@mail.com"&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="form-group"&gt;
+    &lt;label&gt;メッセージ：&lt;/label&gt;
+    &lt;textarea rows="5" placeholder="ここにメッセージを入力してください"&gt;&lt;/textarea&gt;
+  &lt;/div&gt;
+  
+  &lt;button type="submit"&gt;送信&lt;/button&gt;
+&lt;/form&gt;</div>
+
+        <h4>CSS：</h4>
+        <div class="code-example">form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d8e3f0;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+button {
+  background-color: #1f6fb2;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #0b2d5c;
+}</div>
+
+        <h4>出力例：</h4>
+        <div class="preview-box">
+          <div class="preview-label">お問い合わせフォーム</div>
+          <div style="max-width: 500px; margin: 0 auto;">
+            <h3 style="margin-top: 0;">お問い合わせ</h3>
+            <div style="margin-bottom: 15px;">
+              <label style="display: block; margin-bottom: 5px; font-weight: bold;">お名前：</label>
+              <input type="text" placeholder="山田太郎" style="width: 100%; padding: 10px; border: 1px solid #d8e3f0; border-radius: 5px; box-sizing: border-box;">
+            </div>
+            <div style="margin-bottom: 15px;">
+              <label style="display: block; margin-bottom: 5px; font-weight: bold;">メールアドレス：</label>
+              <input type="email" placeholder="example@mail.com" style="width: 100%; padding: 10px; border: 1px solid #d8e3f0; border-radius: 5px; box-sizing: border-box;">
+            </div>
+            <div style="margin-bottom: 15px;">
+              <label style="display: block; margin-bottom: 5px; font-weight: bold;">メッセージ：</label>
+              <textarea rows="5" placeholder="ここにメッセージを入力してください" style="width: 100%; padding: 10px; border: 1px solid #d8e3f0; border-radius: 5px; box-sizing: border-box;"></textarea>
+            </div>
+            <button style="background-color: #1f6fb2; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">送信</button>
+          </div>
+        </div>
+
+        <div class="tips">
+          <strong>💡 ポイント：</strong><br>
+          • type="text" は普通のテキスト入力<br>
+          • type="email" はメールアドレス専用（自動チェック機能付き）<br>
+          • placeholder は入力例を表示する<br>
+          • 今回は見た目だけ。実際に送信する機能は次の段階で学びます
+        </div>
+
+        <div class="important-box">
+          <strong>⚠️ 注意：</strong> 今日作るフォームは「デザインだけ」です。実際にデータを送信する機能（サーバー側の処理）は、より高度な学習が必要です。
+        </div>
+      </div>
+
+      <h3>発展5：セマンティックタグを使おう</h3>
+      <div class="tag-card">
+        <div class="tag-name">意味のあるタグでページを構造化</div>
+        <div class="tag-description">
+          <strong>セマンティックタグとは？</strong><br>
+          divと違って「意味」を持つタグ。ブラウザや検索エンジンが理解しやすくなります。
+        </div>
+
+        <h4>主なセマンティックタグ：</h4>
+        <table style="margin: 10px 0;">
+          <thead>
+            <tr>
+              <th>タグ</th>
+              <th>意味</th>
+              <th>使う場所</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>&lt;header&gt;</td>
+              <td>ヘッダー（上部）</td>
+              <td>サイトタイトル、ロゴ、ナビゲーション</td>
+            </tr>
+            <tr>
+              <td>&lt;main&gt;</td>
+              <td>メインコンテンツ</td>
+              <td>ページの主要な内容（1ページに1つ）</td>
+            </tr>
+            <tr>
+              <td>&lt;footer&gt;</td>
+              <td>フッター（下部）</td>
+              <td>著作権、連絡先、SNSリンク</td>
+            </tr>
+            <tr>
+              <td>&lt;section&gt;</td>
+              <td>セクション（章）</td>
+              <td>内容のまとまり</td>
+            </tr>
+            <tr>
+              <td>&lt;article&gt;</td>
+              <td>独立した記事</td>
+              <td>ブログ記事、ニュース記事</td>
+            </tr>
+            <tr>
+              <td>&lt;aside&gt;</td>
+              <td>補足情報</td>
+              <td>サイドバー、関連情報</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>divとセマンティックタグの比較：</h4>
+        
+        <h5>❌ divだけで書いた場合（意味が不明確）：</h5>
+        <div class="code-example">&lt;div class="header"&gt;
+  &lt;h1&gt;私のサイト&lt;/h1&gt;
+&lt;/div&gt;
+
+&lt;div class="main"&gt;
+  &lt;div class="content"&gt;
+    &lt;h2&gt;プロフィール&lt;/h2&gt;
+    &lt;p&gt;自己紹介文...&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="footer"&gt;
+  &lt;p&gt;© 2024&lt;/p&gt;
+&lt;/div&gt;</div>
+
+        <h5>✅ セマンティックタグで書いた場合（意味が明確）：</h5>
+        <div class="code-example">&lt;header&gt;
+  &lt;h1&gt;私のサイト&lt;/h1&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+  &lt;section&gt;
+    &lt;h2&gt;プロフィール&lt;/h2&gt;
+    &lt;p&gt;自己紹介文...&lt;/p&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;
+  &lt;p&gt;© 2024&lt;/p&gt;
+&lt;/footer&gt;</div>
+
+        <h4>メリット：</h4>
+        <ul>
+          <li><strong>読みやすい：</strong> コードを見た人が構造をすぐ理解できる</li>
+          <li><strong>SEO向上：</strong> 検索エンジンがページの構造を理解しやすい</li>
+          <li><strong>アクセシビリティ：</strong> 読み上げソフトが適切に情報を伝えられる</li>
+          <li><strong>保守性：</strong> 後で修正するときに分かりやすい</li>
+        </ul>
+
+        <h4>実践例：セマンティックタグを使ったページ構造</h4>
+        <div class="code-example">&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;私のプロフィール&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;山田太郎のポートフォリオ&lt;/h1&gt;
+    &lt;nav&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#profile"&gt;プロフィール&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#works"&gt;作品&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#contact"&gt;お問い合わせ&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section id="profile"&gt;
+      &lt;h2&gt;プロフィール&lt;/h2&gt;
+      &lt;p&gt;中学2年生。プログラミングを勉強中です。&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section id="works"&gt;
+      &lt;h2&gt;作品&lt;/h2&gt;
+      &lt;article&gt;
+        &lt;h3&gt;自己紹介サイト&lt;/h3&gt;
+        &lt;p&gt;HTML/CSSで作成しました。&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/section&gt;
+
+    &lt;section id="contact"&gt;
+      &lt;h2&gt;お問い合わせ&lt;/h2&gt;
+      &lt;form&gt;
+        &lt;!-- フォーム内容 --&gt;
+      &lt;/form&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;© 2024 山田太郎. All rights reserved.&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+
+        <div class="tips">
+          <strong>💡 使い分けのコツ：</strong><br>
+          • 意味が明確な場所 → セマンティックタグ（header, main, footer, section）<br>
+          • 単なるスタイリング目的 → div<br>
+          • 迷ったら → セマンティックタグを使う方が良い
+        </div>
+
+        <div class="important-box">
+          <strong>📌 今日の課題で試してみよう：</strong><br>
+          divの代わりに &lt;header&gt;、&lt;main&gt;、&lt;footer&gt; を使ってみましょう。CSSは同じように class を付けて書けます！
+        </div>
+      </div>
+    </div>
+
+    <!-- まとめ -->
+    <div class="section footer-section">
+      <h2>✅ 第4回まとめ</h2>
+      <p>
+        <strong>table：</strong> データを行と列で整理<br>
+        <strong>div：</strong> ページをブロックで整理<br>
+        <strong>使い分け：</strong> データ=table、レイアウト=div
+      </p>
+      <p style="margin-top: 20px;">
+        これで4回の授業は終了です。お疲れさまでした！<br>
+        今日の課題は、これまでの学習の集大成です。頑張りましょう！
+      </p>
+    </div>
+  </body>
+</html>

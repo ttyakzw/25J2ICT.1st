@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第5回授業：最終プロジェクト完成とまとめ</title>
+    <style>
+      :root {
+        --navy: #0b2d5c;
+        --navy-2: #123a73;
+        --blue: #1f6fb2;
+        --sky: #4aa3df;
+        --bg: #f3f7fb;
+        --card: #ffffff;
+        --text: #1b2430;
+        --muted: #5b6b7c;
+        --info-bg: #e8f2fb;
+        --info-border: #1f6fb2;
+        --tip-bg: #fff6da;
+        --tip-border: #f0b429;
+        --warn-bg: #fde8ea;
+        --warn-border: #d64550;
+        --task-bg: #e6f6f8;
+        --task-border: #0f7b8d;
+        --shadow: 0 2px 8px rgba(11, 45, 92, 0.12);
+      }
+
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: var(--bg);
+        line-height: 1.7;
+        color: var(--text);
+      }
+
+      .header {
+        background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 12px;
+        margin-bottom: 24px;
+        text-align: center;
+        box-shadow: var(--shadow);
+      }
+
+      .header h1 {
+        margin: 0 0 10px 0;
+        font-size: 2em;
+      }
+
+      .section {
+        background: var(--card);
+        padding: 25px;
+        margin-bottom: 18px;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+
+      .section h2 {
+        color: var(--navy);
+        border-bottom: 3px solid var(--blue);
+        padding-bottom: 10px;
+        margin-top: 0;
+      }
+
+      .tag-card {
+        background: #f5f9ff;
+        border-left: 5px solid var(--blue);
+        padding: 15px;
+        margin: 14px 0;
+        border-radius: 10px;
+      }
+
+      .tag-name {
+        font-size: 1.1em;
+        font-weight: 800;
+        color: var(--navy-2);
+        margin-bottom: 6px;
+      }
+
+      .tips {
+        background: var(--tip-bg);
+        border-left: 5px solid var(--tip-border);
+        padding: 15px;
+        margin: 18px 0;
+        border-radius: 10px;
+      }
+
+      .tips strong {
+        color: #7a5200;
+      }
+
+      .important-box {
+        background: var(--warn-bg);
+        border-left: 5px solid var(--warn-border);
+        padding: 15px;
+        margin: 18px 0;
+        border-radius: 10px;
+      }
+
+      .important-box strong {
+        color: #7a1f27;
+      }
+
+      .task-box {
+        background: var(--task-bg);
+        border-left: 6px solid var(--task-border);
+        padding: 20px;
+        margin: 18px 0;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+
+      .task-box h3 {
+        margin-top: 0;
+        color: #0b4f5c;
+      }
+
+      ul.checklist {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      ul.checklist li:before {
+        content: "✓ ";
+        color: #1f8b4c;
+        font-weight: 900;
+        margin-right: 8px;
+      }
+
+      .info-box {
+        background: var(--info-bg);
+        border-left: 5px solid var(--info-border);
+        padding: 15px;
+        margin: 18px 0;
+        border-radius: 10px;
+      }
+
+      .info-box strong {
+        color: var(--navy);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #d8e3f0;
+        padding: 12px;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      table th {
+        background-color: var(--navy);
+        color: white;
+        font-weight: 800;
+      }
+
+      table tr:nth-child(even) {
+        background-color: #f5f9ff;
+      }
+
+      .rubric-table th {
+        width: 20%;
+      }
+
+      .rubric-excellent {
+        background-color: #d4edda;
+      }
+
+      .rubric-good {
+        background-color: #d1ecf1;
+      }
+
+      .rubric-fair {
+        background-color: #fff3cd;
+      }
+
+      .rubric-needs-improvement {
+        background-color: #f8d7da;
+      }
+
+      .footer-section {
+        text-align: center;
+        background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+        color: white;
+      }
+
+      .footer-section h2 {
+        color: white;
+        border: none;
+      }
+
+      .teacher-guide {
+        background: #fff3cd;
+        border-left: 5px solid #f0b429;
+        padding: 20px;
+        margin: 18px 0;
+        border-radius: 12px;
+      }
+
+      .teacher-guide h3 {
+        color: #7a5200;
+        margin-top: 0;
+      }
+
+      .checkpoint {
+        background: #e8f2fb;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 10px;
+        border-left: 5px solid #1f6fb2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>🎓 第5回授業：最終プロジェクト完成とまとめ</h1>
+      <p>これまでの学習の集大成！自分だけのWebサイトを完成させよう</p>
+      <div style="margin-top: 15px; font-size: 0.9em; background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px;">
+        <strong>今日のゴール：</strong> 総合Webサイトの完成と提出
+      </div>
+    </div>
+
+    <!-- 授業の流れ -->
+    <div class="teacher-guide">
+      <h2>📋 今日の授業の流れ</h2>
+
+      <h3>⏱️ 時間配分（50分）</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 15%;">時間</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0-5分</td>
+            <td>導入・全5回の復習・最終課題の説明</td>
+          </tr>
+          <tr>
+            <td>5-10分</td>
+            <td>チェックリストで現状確認</td>
+          </tr>
+          <tr>
+            <td>10-40分</td>
+            <td>制作・ブラッシュアップ時間</td>
+          </tr>
+          <tr>
+            <td>40-45分</td>
+            <td>最終チェック・保存</td>
+          </tr>
+          <tr>
+            <td>45-50分</td>
+            <td>提出・振り返りシート記入</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 5回の学習内容の復習 -->
+    <div class="section">
+      <h2>📚 5回の学習内容まとめ</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>回</th>
+            <th>学習内容</th>
+            <th>習得タグ・技術</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>第1回</strong></td>
+            <td>HTMLの基本</td>
+            <td>h1, h2, p, ul, ol, li, a, img</td>
+          </tr>
+          <tr>
+            <td><strong>第2回</strong></td>
+            <td>CSSでデザイン</td>
+            <td>color, font-size, background-color, border, padding, margin</td>
+          </tr>
+          <tr>
+            <td><strong>第3回</strong></td>
+            <td>複数ページとナビゲーション</td>
+            <td>nav, table基礎、ページ間リンク</td>
+          </tr>
+          <tr>
+            <td><strong>第4回</strong></td>
+            <td>tableとdivで整理</td>
+            <td>table詳細（colspan, rowspan）, div, form, セマンティックタグ</td>
+          </tr>
+          <tr>
+            <td><strong>第5回</strong></td>
+            <td>最終プロジェクト完成</td>
+            <td>総合的なWebサイト制作</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 最終課題の要件 -->
+    <div class="task-box">
+      <h3>🎯 最終課題：総合Webサイトの完成</h3>
+
+      <h4>必須要件（すべて満たすこと）：</h4>
+      <ul class="checklist">
+        <li><strong>ページ数：</strong> 3ページ以上（トップページ + 2ページ以上）</li>
+        <li><strong>ナビゲーション：</strong> 全ページに共通の&lt;nav&gt;メニュー</li>
+        <li><strong>テーブル：</strong> 最低1つのテーブルを使用（時間割、好きなものランキングなど）</li>
+        <li><strong>レイアウト：</strong> divまたはセマンティックタグでセクション分け（3つ以上）</li>
+        <li><strong>画像：</strong> 最低2枚の画像を使用</li>
+        <li><strong>リスト：</strong> ulまたはolを使用</li>
+        <li><strong>CSSデザイン：</strong> 色・サイズ・余白などを工夫</li>
+      </ul>
+
+      <h4>推奨要素（できる人は挑戦）：</h4>
+      <ul class="checklist">
+        <li>フォーム（お問い合わせ）の追加</li>
+        <li>セマンティックタグの使用（header, main, footer, section）</li>
+        <li>ホバーエフェクト（:hover）</li>
+        <li>Flexboxでレイアウト</li>
+        <li>colspanやrowspanを使った複雑な表</li>
+      </ul>
+
+      <h4>提出物：</h4>
+      <ol>
+        <li><strong>CodePen URL</strong>（3ページ分すべて）</li>
+        <li><strong>振り返りシート</strong>（Google Classroomのフォームで回答）</li>
+      </ol>
+    </div>
+
+    <!-- チェックリスト -->
+    <div class="section">
+      <h2>✅ 制作前チェックリスト</h2>
+
+      <div class="checkpoint">
+        <h3>基本構造のチェック</h3>
+        <ul class="checklist">
+          <li>3ページ以上作成している</li>
+          <li>全ページにナビゲーションメニューがある</li>
+          <li>ナビゲーションのリンクが正しく動く</li>
+          <li>各ページにh1タグが1つある</li>
+        </ul>
+      </div>
+
+      <div class="checkpoint">
+        <h3>コンテンツのチェック</h3>
+        <ul class="checklist">
+          <li>テーブルを1つ以上使っている</li>
+          <li>画像を2枚以上使っている</li>
+          <li>リスト（ul or ol）を使っている</li>
+          <li>divまたはセマンティックタグで3つ以上のセクションに分けている</li>
+        </ul>
+      </div>
+
+      <div class="checkpoint">
+        <h3>デザインのチェック</h3>
+        <ul class="checklist">
+          <li>色を使ってデザインしている</li>
+          <li>文字サイズを調整している</li>
+          <li>余白（padding, margin）を使っている</li>
+          <li>全体的な統一感がある</li>
+        </ul>
+      </div>
+
+      <div class="checkpoint">
+        <h3>品質のチェック</h3>
+        <ul class="checklist">
+          <li>誤字脱字がない</li>
+          <li>リンクが全て動く</li>
+          <li>画像が全て表示される</li>
+          <li>コードのインデントが整っている</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ブラッシュアップのポイント -->
+    <div class="section">
+      <h2>✨ ブラッシュアップのポイント</h2>
+
+      <h3>1. デザインの統一感を出す</h3>
+      <div class="tag-card">
+        <div class="tag-name">色を統一する</div>
+        <ul>
+          <li>メインカラーを決める（例：青系、緑系など）</li>
+          <li>全ページで同じ色を使う</li>
+          <li>背景色、見出しの色、ナビゲーションの色を揃える</li>
+        </ul>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">余白を整える</div>
+        <ul>
+          <li>各セクションの間に適切な余白（margin）を入れる</li>
+          <li>テキストの周りに余白（padding）を入れる</li>
+          <li>詰まった印象にならないように</li>
+        </ul>
+      </div>
+
+      <h3>2. 情報を整理する</h3>
+      <div class="tag-card">
+        <div class="tag-name">見出しを活用する</div>
+        <ul>
+          <li>h1は各ページに1つだけ（ページタイトル）</li>
+          <li>h2でセクションを分ける</li>
+          <li>h3で細かい項目を分ける</li>
+        </ul>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">表は分かりやすく</div>
+        <ul>
+          <li>見出し行（th）を太字にする</li>
+          <li>偶数行の背景色を変える</li>
+          <li>枠線を付ける</li>
+        </ul>
+      </div>
+
+      <h3>3. 読みやすさを向上させる</h3>
+      <div class="tag-card">
+        <div class="tag-name">コントラストを確保する</div>
+        <ul>
+          <li>薄い背景色には濃い文字色</li>
+          <li>濃い背景色には薄い文字色</li>
+          <li>読みにくい色の組み合わせは避ける</li>
+        </ul>
+      </div>
+
+      <div class="tips">
+        <strong>💡 困ったときは：</strong><br>
+        • これまでの授業資料を見返す<br>
+        • AIに質問する（プロンプトを記録すること）<br>
+        • 友達のページを参考にする（コピーはNG）<br>
+        • 先生に質問する
+      </div>
+    </div>
+
+    <!-- 振り返りシート -->
+    <div class="section">
+      <h2>📝 振り返りシート（Google Classroomで回答）</h2>
+
+      <div class="important-box">
+        <strong>⚠️ 重要：</strong> 振り返りシートは評価の一部です。Google Classroomのフォームから回答してください。
+      </div>
+
+      <h3>回答する項目（全10項目）：</h3>
+
+      <div class="tag-card">
+        <div class="tag-name">1. 使用したHTMLタグ</div>
+        <p><strong>回答内容：</strong> 使用したHTMLタグを10個以上リストアップしてください</p>
+        <p><strong>記入例：</strong> h1, h2, p, ul, li, a, img, table, thead, tbody, tr, th, td, div, nav, form</p>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">2. 使用したCSSプロパティ</div>
+        <p><strong>回答内容：</strong> 使用したCSSプロパティを10個以上リストアップしてください</p>
+        <p><strong>記入例：</strong> color, background-color, font-size, padding, margin, border, text-align, display, width, border-radius</p>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">3. CodePen URL（3ページ分）</div>
+        <p><strong>回答内容：</strong> 作成した3つのページのCodePen URLを記入してください</p>
+        <p><strong>記入方法：</strong></p>
+        <ul>
+          <li>トップページ：https://codepen.io/...</li>
+          <li>2ページ目：https://codepen.io/...</li>
+          <li>3ページ目：https://codepen.io/...</li>
+        </ul>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">4. サイトのテーマとページ構成</div>
+        <p><strong>回答内容：</strong> どんなサイトを作ったか、なぜその構成にしたかを説明してください（100字以上）</p>
+        <p><strong>記入例：</strong> 自分のプロフィールサイトを作りました。トップページで全体を紹介し、プロフィールページで詳しい自己紹介、時間割ページで学校生活を紹介する構成にしました。訪問者が私のことを知りやすいように3ページに分けました。</p>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">5. 工夫した点（デザイン・レイアウト・色使い）</div>
+        <p><strong>回答内容：</strong> デザインやレイアウトで工夫した点を3つ以上、具体的に説明してください</p>
+        <p><strong>記入例：</strong></p>
+        <ul>
+          <li>青系の色で統一し、見出しと背景色を同じ色にして統一感を出した</li>
+          <li>各セクションの間に30pxの余白を入れて、読みやすくした</li>
+          <li>ナビゲーションメニューにホバーエフェクトを付けて、クリックできることが分かりやすくした</li>
+        </ul>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">6. 難しかった点とその解決方法</div>
+        <p><strong>回答内容：</strong> 制作中に難しかったことを2つ以上挙げ、どう解決したか説明してください</p>
+        <p><strong>記入例：</strong></p>
+        <ul>
+          <li>テーブルの枠線が表示されなかった → border-collapse: collapse; を追加したら解決した</li>
+          <li>ナビゲーションが横並びにならなかった → display: flex; を使って解決した</li>
+        </ul>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">7. tableを何に使ったか、なぜtableが適切だと思ったか</div>
+        <p><strong>回答内容：</strong> tableをどんなデータ表示に使ったか、なぜtableを選んだか説明してください</p>
+        <p><strong>記入例：</strong> 1週間の時間割を表示するために使いました。曜日と時間という2つの軸でデータを整理するには、表形式が最も見やすいと思ったからです。</p>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">8. divまたはセマンティックタグをどう使ったか</div>
+        <p><strong>回答内容：</strong> ページをどのようにセクションに分けたか、構造を説明してください</p>
+        <p><strong>記入例：</strong> headerタグでページ上部（タイトルとナビゲーション）、mainタグでメインコンテンツ（プロフィールと時間割）、footerタグでページ下部（著作権表示）に分けました。mainの中はsectionタグでさらに細かく分けました。</p>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">9. AIを使った場合のプロンプト</div>
+        <p><strong>回答内容：</strong> AIを使用した場合、使ったプロンプト（質問内容）を全て記録してください。使っていない場合は「使用していない」と記入</p>
+        <p><strong>記入例：</strong></p>
+        <ul>
+          <li>「CSSでナビゲーションメニューを横並びにする方法を教えてください」</li>
+          <li>「テーブルの偶数行だけ背景色を変える方法を教えてください」</li>
+          <li>「使用していない」（AIを使わなかった場合）</li>
+        </ul>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">10. 5回の授業を通して学んだこと</div>
+        <p><strong>回答内容：</strong> 全5回の授業を通して学んだこと、感じたことを200字以上で書いてください</p>
+        <p><strong>記入のヒント：</strong></p>
+        <ul>
+          <li>最初は難しいと思ったが、どうなったか</li>
+          <li>どのタグやプロパティが特に役立ったか</li>
+          <li>HTML/CSSを学んで、Webサイトの見方が変わったか</li>
+          <li>今後どんなサイトを作ってみたいか</li>
+        </ul>
+      </div>
+
+      <div class="tips">
+        <strong>💡 記入のコツ：</strong><br>
+        • 具体的に書く（「工夫した」ではなく「何をどう工夫したか」）<br>
+        • 例を挙げる（「色を使った」ではなく「青色を使って統一感を出した」）<br>
+        • 数字を入れる（「余白を入れた」ではなく「30pxの余白を入れた」）<br>
+        • 理由を書く（「なぜそうしたか」も説明する）
+      </div>
+    </div>
+
+    <!-- 評価ルーブリック -->
+    <div class="section">
+      <h2>📊 評価ルーブリック</h2>
+
+      <div class="info-box">
+        <strong>評価方法：</strong> 以下の5つの観点で評価します。各観点は4段階評価です。
+      </div>
+
+      <h3>観点1：HTML構造の正確さ（知識・技能）</h3>
+      <table class="rubric-table">
+        <thead>
+          <tr>
+            <th>レベル</th>
+            <th>基準</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="rubric-excellent">
+            <td><strong>A（優秀）</strong></td>
+            <td>
+              • 必須タグが全て正しく使われている<br>
+              • タグの入れ子構造が正確<br>
+              • セマンティックタグを適切に使用している<br>
+              • コードのインデントが整っている
+            </td>
+          </tr>
+          <tr class="rubric-good">
+            <td><strong>B（良好）</strong></td>
+            <td>
+              • 必須タグが全て使われている<br>
+              • タグの使い方に小さなミスが1-2箇所ある<br>
+              • 基本的な構造は理解している
+            </td>
+          </tr>
+          <tr class="rubric-fair">
+            <td><strong>C（要努力）</strong></td>
+            <td>
+              • 必須タグのいくつかが欠けている<br>
+              • タグの使い方に複数のミスがある<br>
+              • 基本的な理解に不安がある
+            </td>
+          </tr>
+          <tr class="rubric-needs-improvement">
+            <td><strong>D（不十分）</strong></td>
+            <td>
+              • 必須タグの多くが欠けている<br>
+              • タグの使い方が正しくない箇所が多い<br>
+              • 基本的な理解ができていない
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>観点2：CSSデザインの工夫（思考・判断・表現）</h3>
+      <table class="rubric-table">
+        <thead>
+          <tr>
+            <th>レベル</th>
+            <th>基準</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="rubric-excellent">
+            <td><strong>A（優秀）</strong></td>
+            <td>
+              • 色・サイズ・余白を効果的に使っている<br>
+              • 全体に統一感がある<br>
+              • 独自の工夫が3つ以上見られる<br>
+              • 読みやすく美しいデザイン
+            </td>
+          </tr>
+          <tr class="rubric-good">
+            <td><strong>B（良好）</strong></td>
+            <td>
+              • 基本的なCSSプロパティを使っている<br>
+              • ある程度の統一感がある<br>
+              • 工夫が1-2つ見られる
+            </td>
+          </tr>
+          <tr class="rubric-fair">
+            <td><strong>C（要努力）</strong></td>
+            <td>
+              • CSSは使っているが最低限<br>
+              • 統一感がない<br>
+              • デザインの工夫が少ない
+            </td>
+          </tr>
+          <tr class="rubric-needs-improvement">
+            <td><strong>D（不十分）</strong></td>
+            <td>
+              • CSSをほとんど使っていない<br>
+              • デザインの工夫が見られない
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>観点3：情報の整理と構成（思考・判断・表現）</h3>
+      <table class="rubric-table">
+        <thead>
+          <tr>
+            <th>レベル</th>
+            <th>基準</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="rubric-excellent">
+            <td><strong>A（優秀）</strong></td>
+            <td>
+              • 情報が論理的に整理されている<br>
+              • tableとdivを適切に使い分けている<br>
+              • ナビゲーションが分かりやすい<br>
+              • ページ構成に一貫性がある
+            </td>
+          </tr>
+          <tr class="rubric-good">
+            <td><strong>B（良好）</strong></td>
+            <td>
+              • 情報が整理されている<br>
+              • tableとdivを使っている<br>
+              • ナビゲーションがある
+            </td>
+          </tr>
+          <tr class="rubric-fair">
+            <td><strong>C（要努力）</strong></td>
+            <td>
+              • 情報の整理が不十分<br>
+              • tableとdivの使い分けが曖昧<br>
+              • 構成に統一感がない
+            </td>
+          </tr>
+          <tr class="rubric-needs-improvement">
+            <td><strong>D（不十分）</strong></td>
+            <td>
+              • 情報が整理されていない<br>
+              • ページ構成が不明確
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>観点4：創意工夫と独自性（思考・判断・表現）</h3>
+      <table class="rubric-table">
+        <thead>
+          <tr>
+            <th>レベル</th>
+            <th>基準</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="rubric-excellent">
+            <td><strong>A（優秀）</strong></td>
+            <td>
+              • テーマに沿った独自のアイデアが3つ以上ある<br>
+              • 個性的で魅力的なデザイン<br>
+              • 発展課題に積極的に挑戦している<br>
+              • 「自分らしさ」が表現されている
+            </td>
+          </tr>
+          <tr class="rubric-good">
+            <td><strong>B（良好）</strong></td>
+            <td>
+              • 独自の工夫が1-2つ見られる<br>
+              • 基本要件以上の内容がある<br>
+              • 自分なりのテーマ性がある
+            </td>
+          </tr>
+          <tr class="rubric-fair">
+            <td><strong>C（要努力）</strong></td>
+            <td>
+              • 最低限の要件は満たしている<br>
+              • 独自性や工夫が少ない<br>
+              • ありきたりな内容
+            </td>
+          </tr>
+          <tr class="rubric-needs-improvement">
+            <td><strong>D（不十分）</strong></td>
+            <td>
+              • 要件を満たすだけで工夫がない<br>
+              • 個性や独自性が全く見られない
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>観点5：振り返りと学習態度（主体的な学習態度）</h3>
+      <table class="rubric-table">
+        <thead>
+          <tr>
+            <th>レベル</th>
+            <th>基準</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="rubric-excellent">
+            <td><strong>A（優秀）</strong></td>
+            <td>
+              • 振り返りシートの全項目を具体的に記述<br>
+              • 学んだことを深く考察している<br>
+              • 試行錯誤の過程が明確<br>
+              • 今後の学習意欲が感じられる
+            </td>
+          </tr>
+          <tr class="rubric-good">
+            <td><strong>B（良好）</strong></td>
+            <td>
+              • 振り返りシートの全項目を記述<br>
+              • 学んだことを記述している<br>
+              • 工夫や困難について書いている
+            </td>
+          </tr>
+          <tr class="rubric-fair">
+            <td><strong>C（要努力）</strong></td>
+            <td>
+              • 振り返りシートに記述漏れがある<br>
+              • 記述が表面的<br>
+              • 具体性に欠ける
+            </td>
+          </tr>
+          <tr class="rubric-needs-improvement">
+            <td><strong>D（不十分）</strong></td>
+            <td>
+              • 振り返りシートの記述が不十分<br>
+              • ほとんど記述していない
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="important-box">
+        <strong>最終評価：</strong> 5つの観点の総合評価で成績を決定します。<br>
+        すべての観点でB以上を目指しましょう！
+      </div>
+    </div>
+
+    <!-- まとめ -->
+    <div class="section footer-section">
+      <h2>🎓 5回の授業を終えて</h2>
+      <p>
+        5回の授業、お疲れさまでした！<br>
+        みなさんは今、HTMLとCSSの基礎をしっかり身につけています。
+      </p>
+      <p style="margin-top: 20px;">
+        <strong>これからできること：</strong><br>
+        • 自分のポートフォリオサイトを作る<br>
+        • 趣味のWebサイトを作る<br>
+        • JavaScriptで動きを付ける（次のステップ）<br>
+        • サーバーと連携させる（さらに次のステップ）
+      </p>
+      <p style="margin-top: 20px;">
+        <strong>今日の作品は、あなたの第一歩です。</strong><br>
+        ぜひ、これからも学び続けてください！
+      </p>
+    </div>
+  </body>
+</html>
